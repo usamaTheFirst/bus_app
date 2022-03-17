@@ -2,25 +2,27 @@ import 'package:bus_ticket_app/constants/constants.dart';
 import 'package:bus_ticket_app/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 
-class LoginSCreen extends StatefulWidget {
-  const LoginSCreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
   static const String routeName = '/login';
 
   @override
-  State<LoginSCreen> createState() => _LoginSCreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginSCreenState extends State<LoginSCreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             margin: EdgeInsets.only(top: 100),
-            alignment: Alignment.center,
+            // alignment: Alignment.center,
             child: Text(
               'Login to Bus Ticket App',
               style: TextStyle(
@@ -34,10 +36,10 @@ class _LoginSCreenState extends State<LoginSCreen> {
           SizedBox(height: 20),
           Form(
               key: _formKey,
-              child: Expanded(
+              child: Flexible(
                 child: ListView(
                   physics: AlwaysScrollableScrollPhysics(),
-                  // shrinkWrap: true,
+                  shrinkWrap: true,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -52,6 +54,10 @@ class _LoginSCreenState extends State<LoginSCreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         decoration: kTextFieldDecoration.copyWith(
+                          prefixIcon: Icon(
+                            Icons.lock,
+                            color: Colors.black54,
+                          ),
                           hintText: 'Password',
                         ),
                       ),
@@ -60,7 +66,7 @@ class _LoginSCreenState extends State<LoginSCreen> {
                       title: 'Login',
                       color: kPrimaryColor,
                       function: () {},
-                    )
+                    ),
                   ],
                 ),
               ))

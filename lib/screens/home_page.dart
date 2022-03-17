@@ -1,4 +1,6 @@
 import 'package:bus_ticket_app/constants/constants.dart';
+import 'package:bus_ticket_app/screens/login_screen.dart';
+import 'package:bus_ticket_app/screens/signup_screen.dart';
 import 'package:bus_ticket_app/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -22,8 +24,8 @@ class HomePage extends StatelessWidget {
                 width: 400,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 20),
               child: Text(
                 'Welcome to Bus Ticket App',
                 style: TextStyle(
@@ -33,9 +35,9 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Container(
-                margin: EdgeInsets.only(bottom: 50),
+                margin: const EdgeInsets.only(bottom: 50),
                 // alignment: Alignment.bottomCenter,
                 child: Column(
                   children: [
@@ -43,12 +45,14 @@ class HomePage extends StatelessWidget {
                         color: kPrimaryColor,
                         title: "Login",
                         function: () {
-                          Navigator.pushNamed(context, '/login');
+                          Navigator.pushNamed(context, LoginScreen.routeName);
                         }),
                     RoundedButton(
                         color: kPrimaryColor,
                         title: "Register",
-                        function: () {})
+                        function: () {
+                          Navigator.pushNamed(context, SignupScreen.routeName);
+                        })
                   ],
                 )),
           ],
