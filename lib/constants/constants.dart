@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 const kBackgroundColor = Color(0xFFF9F7F7);
@@ -21,5 +19,3 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(10.0)),
   ),
 );
-
-// const kButtonStyle = ElevatedButton.styleFrom(back);

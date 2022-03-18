@@ -21,9 +21,9 @@ class _LoginScreenState extends State<LoginScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.only(top: 100),
+            margin: const EdgeInsets.only(top: 100),
             // alignment: Alignment.center,
-            child: Text(
+            child: const Text(
               'Login to Bus Ticket App',
               style: TextStyle(
                 fontSize: 30,
@@ -33,13 +33,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Form(
               key: _formKey,
               child: Flexible(
                 child: ListView(
-                  padding: EdgeInsets.all(8),
-                  physics: AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.all(8),
+                  physics: const AlwaysScrollableScrollPhysics(),
                   shrinkWrap: true,
                   children: [
                     Padding(
@@ -47,7 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: TextFormField(
                         decoration: kTextFieldDecoration.copyWith(
                           hintText: "Email",
-                          prefixIcon: Icon(Icons.email, color: Colors.black54),
+                          prefixIcon:
+                              const Icon(Icons.email, color: Colors.black54),
                         ),
                       ),
                     ),
@@ -55,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         decoration: kTextFieldDecoration.copyWith(
-                          prefixIcon: Icon(
+                          prefixIcon: const Icon(
                             Icons.lock,
                             color: Colors.black54,
                           ),

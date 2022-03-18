@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 100),
+              margin: const EdgeInsets.only(top: 100),
               alignment: Alignment.topCenter,
               child: SvgPicture.asset(
                 'assets/illustration.svg',

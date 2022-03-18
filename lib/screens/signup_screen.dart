@@ -23,9 +23,9 @@ class _SignupScreenState extends State<SignupScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              margin: EdgeInsets.only(top: 100),
+              margin: const EdgeInsets.only(top: 100),
               // alignment: Alignment.center,
-              child: Text(
+              child: const Text(
                 'Register to Bus Ticket App',
                 style: TextStyle(
                   fontSize: 30,
@@ -35,88 +35,96 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (MediaQuery.of(context).viewInsets.bottom <= 0)
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
             Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        textInputAction: TextInputAction.next,
-                        decoration: kTextFieldDecoration.copyWith(
-                          hintText: "Name",
-                          prefixIcon:
-                              Icon(Icons.account_circle, color: Colors.black54),
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      textInputAction: TextInputAction.next,
+                      decoration: kTextFieldDecoration.copyWith(
+                        hintText: "Name",
+                        prefixIcon: const Icon(Icons.account_circle,
+                            color: Colors.black54),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      textInputAction: TextInputAction.next,
+                      decoration: kTextFieldDecoration.copyWith(
+                        hintText: 'Email',
+                        prefixIcon: const Icon(
+                          Icons.email,
+                          color: Colors.black54,
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        textInputAction: TextInputAction.next,
-                        decoration: kTextFieldDecoration.copyWith(
-                          hintText: 'Email',
-                          prefixIcon: Icon(
-                            Icons.email,
-                            color: Colors.black54,
-                          ),
-                        ),
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return 'Please enter your email';
-                          }
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        textInputAction: TextInputAction.next,
-                        decoration: kTextFieldDecoration.copyWith(
-                          hintText: 'Password',
-                          prefixIcon: Icon(
-                            Icons.lock,
-                            color: Colors.black54,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        textInputAction: TextInputAction.next,
-                        decoration: kTextFieldDecoration.copyWith(
-                          hintText: 'Confirm Password',
-                          prefixIcon: Icon(
-                            Icons.lock,
-                            color: Colors.black54,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InternationalPhoneNumberInput(
-                        initialValue: PhoneNumber(isoCode: 'PK'),
-                        onInputChanged: (val) {},
-                        inputDecoration: kTextFieldDecoration,
-                      ),
-                    ),
-                    RoundedButton(
-                      title: 'Register',
-                      color: kPrimaryColor,
-                      function: () {
-                        _formKey.currentState!.validate();
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return 'Please enter your email';
+                        }
                       },
                     ),
-                  ],
-                ))
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      textInputAction: TextInputAction.next,
+                      decoration: kTextFieldDecoration.copyWith(
+                        hintText: 'Password',
+                        prefixIcon: const Icon(
+                          Icons.lock,
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      textInputAction: TextInputAction.next,
+                      decoration: kTextFieldDecoration.copyWith(
+                        hintText: 'Confirm Password',
+                        prefixIcon: const Icon(
+                          Icons.lock,
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InternationalPhoneNumberInput(
+                      initialValue: PhoneNumber(isoCode: 'PK'),
+                      onInputChanged: (val) {},
+                      inputDecoration: kTextFieldDecoration,
+                    ),
+                  ),
+                  RoundedButton(
+                    title: 'Register as Customer',
+                    color: kPrimaryColor,
+                    function: () {
+                      _formKey.currentState!.validate();
+                    },
+                  ),
+                  RoundedButton(
+                    title: 'Register as Driver',
+                    color: kPrimaryColor,
+                    function: () {
+                      _formKey.currentState!.validate();
+                    },
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

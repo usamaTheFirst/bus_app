@@ -1,6 +1,4 @@
-import 'package:bus_ticket_app/screens/home_page.dart';
-import 'package:bus_ticket_app/screens/login_screen.dart';
-import 'package:bus_ticket_app/screens/signup_screen.dart';
+import 'bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -22,16 +20,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        LoginScreen.routeName: (context) => LoginScreen(),
-        HomePage.routeName: (context) => HomePage(),
-        SignupScreen.routeName: (context) => SignupScreen()
+        LoginScreen.routeName: (context) => const LoginScreen(),
+        HomePage.routeName: (context) => const HomePage(),
+        SignupScreen.routeName: (context) => const SignupScreen(),
+        MainUserScreen.routeName: (context) => const MainUserScreen(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(
         scaffoldBackgroundColor: kBackgroundColor,
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const MainUserScreen(),
     );
   }
 }
