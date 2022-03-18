@@ -38,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
               key: _formKey,
               child: Flexible(
                 child: ListView(
+                  padding: EdgeInsets.all(8),
                   physics: AlwaysScrollableScrollPhysics(),
                   shrinkWrap: true,
                   children: [
