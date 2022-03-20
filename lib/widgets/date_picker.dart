@@ -22,7 +22,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
               pickDate(context);
             },
             child: contdc(
-              FaIcon(FontAwesomeIcons.calendarTimes),
+              FaIcon(FontAwesomeIcons.calendarAlt),
             ),
           ),
           hintText: 'Select Date'),
@@ -51,9 +51,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
 
   Widget contdc(Icon) {
     return Container(
-      width: 30,
-      height: 30,
-      margin: EdgeInsets.fromLTRB(10, 08, 20, 0),
+      margin: EdgeInsets.fromLTRB(13, 08, 20, 0),
       child: Icon,
     );
   }

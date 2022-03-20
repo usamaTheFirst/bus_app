@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../bus.dart';
 import '../constants/constants.dart';
@@ -40,12 +41,13 @@ class BookTicket extends StatelessWidget {
           children: [
             TextFormField(
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.departure_board),
-                  hintText: 'Enter Source'),
+                prefixIcon: Icon(FontAwesomeIcons.arrowRight),
+                hintText: 'Enter Source',
+              ),
             ),
             TextFormField(
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.share_arrival_time),
+                  prefixIcon: Icon(FontAwesomeIcons.arrowLeft),
                   hintText: 'Enter Destination'),
             ),
             DatePickerWidget(),
