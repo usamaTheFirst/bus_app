@@ -36,10 +36,32 @@ class MainUserScreen extends StatelessWidget {
           preferredSize: Size.fromHeight(40),
         ),
       ),
-      body: MenuTile(
-          title: 'Book Ticket',
-          onTap: () {},
-          iconSource: FontAwesomeIcons.ticketAlt),
+      body: Container(
+        margin: const EdgeInsets.all(20),
+        child: GridView.count(
+          crossAxisCount: 2,
+          crossAxisSpacing: 40,
+          mainAxisSpacing: 40,
+          children: [
+            MenuTile(
+                title: 'Book Ticket',
+                onTap: () {},
+                iconSource: FontAwesomeIcons.ticketAlt),
+            MenuTile(
+                title: 'View History',
+                onTap: () {},
+                iconSource: FontAwesomeIcons.history),
+            MenuTile(
+                title: 'My Booking',
+                onTap: () {},
+                iconSource: FontAwesomeIcons.bus),
+            MenuTile(
+                title: 'View Schedule',
+                onTap: () {},
+                iconSource: FontAwesomeIcons.calendarDay),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -19,8 +19,8 @@ class MenuTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: SizedBox(
-        width: 150,
-        height: 150,
+        width: 120,
+        height: 120,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -31,13 +31,15 @@ class MenuTile extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FaIcon(iconSource, size: 75, color: Colors.green),
+              FaIcon(iconSource, size: 60, color: kTextColor),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  "Book Ticket",
+                  title,
                   style: TextStyle(
                     fontSize: 16,
+                    color: kTextColor,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
