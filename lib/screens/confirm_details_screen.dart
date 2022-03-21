@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import '../exports.dart';
 
 class ConfirmDetails extends StatelessWidget {
-  const ConfirmDetails({Key? key, this.source, this.destination})
+  const ConfirmDetails(
+      {Key? key, this.source, this.destination, this.dateTime, this.busNumber})
       : super(key: key);
 
   static const routeName = '/confirm_details_screen';
   final String? source;
   final String? destination;
+  final DateTime? dateTime;
+  final String? busNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +23,12 @@ class ConfirmDetails extends StatelessWidget {
         backgroundColor: kPrimaryColor,
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: const Icon(Icons.menu),
           onPressed: () {},
         ),
         bottom: PreferredSize(
           child: Container(
-            padding: EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(bottom: 10),
             child: Column(
               children: [
                 Padding(
@@ -34,50 +37,46 @@ class ConfirmDetails extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        child: Column(
-                          children: [
-                            Text(
-                              'Source',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: kBackgroundColor,
-                              ),
+                      Column(
+                        children: const [
+                          Text(
+                            'Source',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: kBackgroundColor,
                             ),
-                            Text(
-                              'Source City',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: kBackgroundColor,
-                              ),
+                          ),
+                          Text(
+                            'Source City',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: kBackgroundColor,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      Container(
-                        child: Column(
-                          children: [
-                            Text(
-                              'Destination',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: kBackgroundColor,
-                              ),
+                      Column(
+                        children: const [
+                          Text(
+                            'Destination',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: kBackgroundColor,
                             ),
-                            Text(
-                              'Destination City',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: kBackgroundColor,
-                              ),
+                          ),
+                          Text(
+                            'Destination City',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: kBackgroundColor,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
-                Text(
+                const Text(
                   'Route Details',
                   style: TextStyle(
                     fontSize: 20,
@@ -88,8 +87,37 @@ class ConfirmDetails extends StatelessWidget {
               ],
             ),
           ),
-          preferredSize: Size.fromHeight(150),
+          preferredSize: const Size.fromHeight(150),
         ),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: const [
+                DetailsTile(
+                  type: 'Date',
+                  info: 'Date Placeholder',
+                ),
+                DetailsTile(
+                  type: 'Time',
+                  info: 'Time Placeholder',
+                ),
+                DetailsTile(
+                  type: 'Bus Number',
+                  info: 'Number Placeholder',
+                ),
+              ],
+            ),
+          ),
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: RoundedButton(
+                title: 'Confirm Details', function: () {}, color: kTextColor),
+          ),
+        ],
       ),
     );
   }

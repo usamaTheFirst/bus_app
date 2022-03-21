@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:intl/intl.dart';
 import '../exports.dart';
 
-class BookTicket extends StatelessWidget {
+class BookTicket extends StatefulWidget {
   const BookTicket({Key? key}) : super(key: key);
 
   static const routeName = '/book_ticket_screen';
+
+  @override
+  State<BookTicket> createState() => _BookTicketState();
+}
+
+class _BookTicketState extends State<BookTicket> {
+  DateTime pickedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +31,10 @@ class BookTicket extends StatelessWidget {
         ),
       ),
       body: Container(
-        margin: EdgeInsets.all(20),
-        padding: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(10),
         height: MediaQuery.of(context).size.height * 0.3,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(
                 color: Color.fromRGBO(0, 0, 0, 0.25),
@@ -39,24 +46,44 @@ class BookTicket extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 prefixIcon: Icon(FontAwesomeIcons.arrowRight),
                 hintText: 'Enter Source',
               ),
             ),
             TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   prefixIcon: Icon(FontAwesomeIcons.arrowLeft),
                   hintText: 'Enter Destination'),
             ),
-            DatePickerWidget(),
+            SizedBox(
+              height: 70,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Picked Date : ${DateFormat.yMd().format(pickedDate)}',
+                    ),
+                  ),
+                  FlatButton(
+                    textColor: Theme.of(context).primaryColor,
+                    onPressed: _datePicker,
+                    child: const Text(
+                      'Choose Date',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
             Padding(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               child: InkWell(
                 onTap: () {},
-                child: Container(
+                child: const SizedBox(
                   width: 150,
-                  height: 48,
                   child: Center(
                       child: Text(
                     'Search',
@@ -75,5 +102,21 @@ class BookTicket extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _datePicker() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2021),
+            lastDate: DateTime.now())
+        .then((date) {
+      if (date == null) {
+        return;
+      }
+      setState(() {
+        pickedDate = date;
+      });
+    });
   }
 }

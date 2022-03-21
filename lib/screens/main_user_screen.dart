@@ -18,13 +18,13 @@ class MainUserScreen extends StatelessWidget {
         backgroundColor: kPrimaryColor,
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: const Icon(Icons.menu),
           onPressed: () {},
         ),
         bottom: PreferredSize(
           child: Container(
-            padding: EdgeInsets.only(bottom: 10),
-            child: Text(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: const Text(
               'User Name',
               style: TextStyle(
                 fontSize: 20,
@@ -32,7 +32,7 @@ class MainUserScreen extends StatelessWidget {
               ),
             ),
           ),
-          preferredSize: Size.fromHeight(40),
+          preferredSize: const Size.fromHeight(40),
         ),
       ),
       body: Container(

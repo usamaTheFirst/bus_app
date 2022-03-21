@@ -33,10 +33,10 @@ class MenuTile extends StatelessWidget {
             children: [
               FaIcon(iconSource, size: 60, color: kTextColor),
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     color: kTextColor,
                     fontWeight: FontWeight.bold,
