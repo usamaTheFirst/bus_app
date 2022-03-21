@@ -26,13 +26,14 @@ class MyApp extends StatelessWidget {
         MainUserScreen.routeName: (context) => const MainUserScreen(),
         BookTicket.routeName: (context) => const BookTicket(),
         ConfirmDetails.routeName: (context) => const ConfirmDetails(),
+        PaymentScreen.routename: (context) => const PaymentScreen()
       },
       title: 'Flutter Demo',
       theme: ThemeData(
         scaffoldBackgroundColor: kBackgroundColor,
         primarySwatch: Colors.blue,
       ),
-      home: const ConfirmDetails(),
+      home: const PaymentScreen(),
     );
   }
 }
