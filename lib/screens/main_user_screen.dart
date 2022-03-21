@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '/bus.dart';
-import '../constants/constants.dart';
+import '../exports.dart';
 
 class MainUserScreen extends StatelessWidget {
   const MainUserScreen({Key? key}) : super(key: key);

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../bus.dart';
-import '../constants/constants.dart';
+import '../exports.dart';
 
 class ConfirmDetails extends StatelessWidget {
   const ConfirmDetails({Key? key, this.source, this.destination})
