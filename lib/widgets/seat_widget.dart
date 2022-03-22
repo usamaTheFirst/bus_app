@@ -11,19 +11,38 @@ class SeatWidget extends StatefulWidget {
 }
 
 class _SeatWidgetState extends State<SeatWidget> {
+  Color? color;
+  @override
+  void initState() {
+    // TODO: implement initState
+    if (widget.seat.confirm) {
+      color = Colors.grey;
+    } else {
+      color = kPrimaryColor;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        widget.seat.changeStatus();
-        setState(() {});
-      },
+      onTap: widget.seat.confirm
+          ? null
+          : () {
+              widget.seat.changeStatus();
+              setState(() {
+                if (widget.seat.isBooked) {
+                  color = Colors.green;
+                } else {
+                  color = kPrimaryColor;
+                }
+              });
+            },
       child: Container(
         width: 10,
         height: 10,
         decoration: BoxDecoration(
-            color: widget.seat.isBooked ? Colors.grey : Colors.lightGreenAccent,
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+            color: color, borderRadius: BorderRadius.all(Radius.circular(10))),
       ),
     );
   }
