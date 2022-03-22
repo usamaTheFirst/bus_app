@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({Key? key}) : super(key: key);
-  static const routename = "/payment-screen";
+  static const routeName = "/payment-screen";
   @override
   Widget build(BuildContext context) {
     return Scaffold(

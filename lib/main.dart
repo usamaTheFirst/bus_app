@@ -1,5 +1,3 @@
-import 'package:bus_ticket_app/screens/seat_screen.dart';
-
 import 'exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,14 +24,16 @@ class MyApp extends StatelessWidget {
         MainUserScreen.routeName: (context) => const MainUserScreen(),
         BookTicket.routeName: (context) => const BookTicket(),
         ConfirmDetails.routeName: (context) => const ConfirmDetails(),
-        PaymentScreen.routename: (context) => const PaymentScreen()
+        PaymentScreen.routeName: (context) => const PaymentScreen(),
+        ViewHistory.routeName: (context) => const ViewHistory(),
+        MyBooking.routeName: (context) => const MyBooking(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(
         scaffoldBackgroundColor: kBackgroundColor,
         primarySwatch: Colors.blue,
       ),
-      home: const SeatScreen(),
+      home: const MyBooking(),
     );
   }
 }
