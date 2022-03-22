@@ -1,3 +1,4 @@
+import 'package:bus_ticket_app/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/constants.dart';
@@ -11,16 +12,13 @@ class MyBooking extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: const DrawerWidget(),
         appBar: AppBar(
           title: const Text(
             'My Booking',
           ),
           backgroundColor: kPrimaryColor,
           centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {},
-          ),
         ),
         body: Column(
           children: [
