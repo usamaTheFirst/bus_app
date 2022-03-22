@@ -1,6 +1,7 @@
 import 'package:bus_ticket_app/constants/constants.dart';
 import 'package:bus_ticket_app/exports.dart';
 import 'package:bus_ticket_app/models/seat.dart';
+import 'package:bus_ticket_app/widgets/drawer_widget.dart';
 import 'package:bus_ticket_app/widgets/seat_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -63,6 +64,7 @@ class SeatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: DrawerWidget(),
         backgroundColor: kBackgroundColor,
         appBar: AppBar(
           title: const Text('Select Seats'),
@@ -87,7 +89,7 @@ class SeatScreen extends StatelessWidget {
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 4,
-                                    childAspectRatio: 3 / 2,
+                                    childAspectRatio: 3 / 3,
                                     crossAxisSpacing: 10,
                                     mainAxisSpacing: 10),
                             itemBuilder: (ctx, ind) =>

@@ -11,3 +11,5 @@ export 'widgets/details_tile.dart';
 
 export 'constants/constants.dart';
 export 'screens/payment_screen.dart';
+export 'screens/seat_screen.dart';
+export 'widgets/seat_widget.dart';
