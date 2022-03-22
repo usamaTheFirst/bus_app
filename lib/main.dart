@@ -1,3 +1,5 @@
+import 'package:bus_ticket_app/screens/seat_screen.dart';
+
 import 'exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: kBackgroundColor,
         primarySwatch: Colors.blue,
       ),
-      home: const PaymentScreen(),
+      home: const SeatScreen(),
     );
   }
 }
