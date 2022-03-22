@@ -1,3 +1,4 @@
+import 'package:bus_ticket_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,6 +13,9 @@ class DrawerWidget extends StatelessWidget {
         child: Column(
           children: [
             const UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: kPrimaryColor,
+              ),
               accountName: Text('Usama Fayyaz'),
               accountEmail: Text('usamafiaz1453@gmail.com'),
               currentAccountPicture: CircleAvatar(
