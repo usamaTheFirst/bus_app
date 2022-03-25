@@ -1,6 +1,10 @@
 import 'package:bus_ticket_app/constants/constants.dart';
+import 'package:bus_ticket_app/exports.dart';
 import 'package:bus_ticket_app/widgets/rounded_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -12,7 +16,11 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  final _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey();
+  String? name, email, password, phoneNumber;
+  bool customerLoader = false;
+  bool driverLoader = false;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +62,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         prefixIcon: const Icon(Icons.account_circle,
                             color: Colors.black54),
                       ),
+                      onSaved: (value) => name = value?.trim(),
                     ),
                   ),
                   Padding(
@@ -70,14 +79,22 @@ class _SignupScreenState extends State<SignupScreen> {
                       validator: (val) {
                         if (val!.isEmpty) {
                           return 'Please enter your email';
+                        } else if (!val.contains('@') ||
+                            !val.contains('.') ||
+                            !val.contains('com')) {
+                          return 'Please enter a valid email';
+                        } else {
+                          return null;
                         }
                       },
+                      onSaved: (value) => email = value?.trim(),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       textInputAction: TextInputAction.next,
+                      obscureText: true,
                       decoration: kTextFieldDecoration.copyWith(
                         hintText: 'Password',
                         prefixIcon: const Icon(
@@ -85,11 +102,23 @@ class _SignupScreenState extends State<SignupScreen> {
                           color: Colors.black54,
                         ),
                       ),
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return 'Please enter your password';
+                        } else if (val.length < 6) {
+                          return 'Password must be at least 6 characters';
+                        } else {
+                          password = val;
+                          return null;
+                        }
+                      },
+                      onSaved: (value) => password = value?.trim(),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      obscureText: true,
                       textInputAction: TextInputAction.next,
                       decoration: kTextFieldDecoration.copyWith(
                         hintText: 'Confirm Password',
@@ -98,30 +127,138 @@ class _SignupScreenState extends State<SignupScreen> {
                           color: Colors.black54,
                         ),
                       ),
+                      validator: (val) {
+                        if (val != password) {
+                          return 'Passwords do not match';
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InternationalPhoneNumberInput(
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return 'Please enter your phone number';
+                        } else if (val.length < 10) {
+                          return 'Phone number must be at least 10 digits';
+                        } else {
+                          phoneNumber = val;
+                          return null;
+                        }
+                      },
                       initialValue: PhoneNumber(isoCode: 'PK'),
                       onInputChanged: (val) {},
+                      onSaved: (value) => phoneNumber = value.phoneNumber,
                       inputDecoration: kTextFieldDecoration,
                     ),
                   ),
-                  RoundedButton(
-                    title: 'Register as Customer',
+                  SpinnerButton(
+                    child: !customerLoader
+                        ? const Text(
+                            "Register as Customer",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 20.0),
+                          )
+                        : const CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
                     color: kPrimaryColor,
-                    function: () {
+                    function: () async {
                       _formKey.currentState!.validate();
+                      _formKey.currentState!.save();
+                      setState(() {
+                        // customerLoader = true;
+                      });
+
+                      try {
+                        final User? _user =
+                            (await _auth.createUserWithEmailAndPassword(
+                                    email: email.toString(),
+                                    password: password.toString()))
+                                .user;
+                        final id = _user!.uid;
+                        print(id);
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(id)
+                            .set({
+                          'email': email,
+                          'phoneNumber': phoneNumber,
+                          'name': name,
+                          'role': 'customer',
+                        });
+                        setState(() {
+                          customerLoader = false;
+                        });
+                        Navigator.pushNamed(context, MainUserScreen.routeName,
+                            arguments: {
+                              'name': name,
+                            });
+                      } on FirebaseAuthException catch (e) {
+                        print(e.toString());
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(e.message.toString()),
+                          ),
+                        );
+                      }
                     },
                   ),
-                  RoundedButton(
-                    title: 'Register as Driver',
-                    color: kPrimaryColor,
-                    function: () {
-                      _formKey.currentState!.validate();
-                    },
-                  ),
+                  SpinnerButton(
+                      child: !driverLoader
+                          ? const Text(
+                              "Register as Driver",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 20.0),
+                            )
+                          : const CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                      color: kPrimaryColor,
+                      function: () async {
+                        _formKey.currentState!.validate();
+                        _formKey.currentState!.save();
+                        setState(() {
+                          // customerLoader = true;
+                        });
+
+                        try {
+                          setState(() {
+                            driverLoader = true;
+                          });
+                          final User? _user =
+                              (await _auth.createUserWithEmailAndPassword(
+                                      email: email.toString(),
+                                      password: password.toString()))
+                                  .user;
+                          final id = _user!.uid;
+                          print(id);
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(id)
+                              .set({
+                            'email': email,
+                            'phoneNumber': phoneNumber,
+                            'name': name,
+                            'role': 'driver',
+                          });
+                        } on FirebaseAuthException catch (e) {
+                          print(e.toString());
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(e.message.toString()),
+                            ),
+                          );
+                        }
+                        setState(() {
+                          customerLoader = false;
+                        });
+                      }),
                 ],
               ),
             )

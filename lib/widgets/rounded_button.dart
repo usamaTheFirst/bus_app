@@ -29,3 +29,30 @@ class RoundedButton extends StatelessWidget {
     );
   }
 }
+
+class SpinnerButton extends StatelessWidget {
+  final Color color;
+  final Widget child;
+  final VoidCallback function;
+
+  SpinnerButton(
+      {required this.color, required this.child, required this.function});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Material(
+        elevation: 5.0,
+        color: color,
+        borderRadius: BorderRadius.circular(30.0),
+        child: MaterialButton(
+          onPressed: function,
+          minWidth: MediaQuery.of(context).size.width * 0.9,
+          height: 50.0,
+          child: child,
+        ),
+      ),
+    );
+  }
+}

@@ -1,8 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
+
 import 'exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -33,7 +37,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: kBackgroundColor,
         primarySwatch: Colors.blue,
       ),
-      home: const MyBooking(),
+      home: const SignupScreen(),
     );
   }
 }

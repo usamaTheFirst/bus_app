@@ -9,6 +9,8 @@ class MainUserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -24,8 +26,8 @@ class MainUserScreen extends StatelessWidget {
         bottom: PreferredSize(
           child: Container(
             padding: const EdgeInsets.only(bottom: 10),
-            child: const Text(
-              'User Name',
+            child: Text(
+              args['name'],
               style: TextStyle(
                 fontSize: 20,
                 color: kBackgroundColor,
