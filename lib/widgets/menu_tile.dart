@@ -17,7 +17,9 @@ class MenuTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        onTap();
+      },
       child: SizedBox(
         width: 120,
         height: 120,

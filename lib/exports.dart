@@ -19,3 +19,4 @@ export 'widgets/seat_widget.dart';
 export 'widgets/drawer_widget.dart';
 
 export "screens/driver_screens/driver_home_screen.dart";
+export "screens/driver_screens/driver_routes_screen.dart";

@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         ViewHistory.routeName: (context) => const ViewHistory(),
         MyBooking.routeName: (context) => const MyBooking(),
         MainDriverScreen.routeName: (context) => const MainDriverScreen(),
+        DriverRoutes.routeName: (context) => const DriverRoutes(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(

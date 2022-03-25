@@ -41,7 +41,9 @@ class MainDriverScreen extends StatelessWidget {
           children: [
             MenuTile(
                 title: 'My Routes',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, DriverRoutes.routeName);
+                },
                 iconSource: FontAwesomeIcons.route),
             MenuTile(
                 title: 'Past Routes',
