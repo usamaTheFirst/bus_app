@@ -3,6 +3,9 @@ import 'package:bus_ticket_app/widgets/rounded_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/user.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -112,6 +115,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
                           print(role);
                           print(role);
+                          Provider.of<UserData>(context, listen: false)
+                              .setUser(_user!);
                         } on FirebaseAuthException catch (e) {
                           print(e.message.toString());
                           ScaffoldMessenger.of(context).showSnackBar(

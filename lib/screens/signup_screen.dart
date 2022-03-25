@@ -3,6 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:provider/provider.dart';
+
+import '../models/user.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -172,12 +175,15 @@ class _SignupScreenState extends State<SignupScreen> {
                       });
 
                       try {
-                        final User? _user =
+                        User? _user =
                             (await _auth.createUserWithEmailAndPassword(
                                     email: email.toString(),
                                     password: password.toString()))
                                 .user;
                         final id = _user!.uid;
+                        await _user.updateDisplayName(name);
+                        await _user.reload();
+                        _user = _auth.currentUser;
                         print(id);
                         await FirebaseFirestore.instance
                             .collection('users')
@@ -188,6 +194,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           'name': name,
                           'role': 'customer',
                         });
+                        Provider.of<UserData>(context, listen: false)
+                            .setUser(_user!);
                         setState(() {
                           customerLoader = false;
                         });
@@ -228,13 +236,16 @@ class _SignupScreenState extends State<SignupScreen> {
                           setState(() {
                             driverLoader = true;
                           });
-                          final User? _user =
+                          User? _user =
                               (await _auth.createUserWithEmailAndPassword(
                                       email: email.toString(),
                                       password: password.toString()))
                                   .user;
                           final id = _user!.uid;
                           print(id);
+                          await _user.reload();
+                          _user = _auth.currentUser;
+
                           await FirebaseFirestore.instance
                               .collection('users')
                               .doc(id)
@@ -244,6 +255,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             'name': name,
                             'role': 'driver',
                           });
+                          Provider.of<UserData>(context, listen: false)
+                              .setUser(_user!);
                         } on FirebaseAuthException catch (e) {
                           print(e.toString());
                           ScaffoldMessenger.of(context).showSnackBar(
