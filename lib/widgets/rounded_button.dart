@@ -5,7 +5,8 @@ class RoundedButton extends StatelessWidget {
   final String title;
   final VoidCallback function;
 
-  RoundedButton(
+  // ignore: use_key_in_widget_constructors
+  const RoundedButton(
       {required this.color, required this.title, required this.function});
 
   @override
@@ -35,7 +36,7 @@ class SpinnerButton extends StatelessWidget {
   final Widget child;
   final VoidCallback function;
 
-  SpinnerButton(
+  const SpinnerButton(
       {required this.color, required this.child, required this.function});
 
   @override

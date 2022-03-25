@@ -40,13 +40,13 @@ class DrawerWidget extends StatelessWidget {
               thickness: 1,
             ),
             ListTile(
-              leading: Icon(FontAwesomeIcons.mailBulk),
+              leading: const Icon(FontAwesomeIcons.mailBulk),
               onTap: () async {
                 await launch("mailto:usamafiaz@1453@gmail.com");
               },
-              title: Text("Contact us"),
+              title: const Text("Contact us"),
             ),
-            Divider(
+            const Divider(
               thickness: 1,
             ),
           ],

@@ -1,10 +1,7 @@
-import 'package:bus_ticket_app/constants/constants.dart';
 import 'package:bus_ticket_app/exports.dart';
-import 'package:bus_ticket_app/widgets/rounded_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class SignupScreen extends StatefulWidget {

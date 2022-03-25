@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../constants/constants.dart';
 import '../exports.dart';
 
 class ViewHistory extends StatelessWidget {
@@ -11,16 +10,13 @@ class ViewHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: const DrawerWidget(),
         appBar: AppBar(
           title: const Text(
             'Travel History',
           ),
           backgroundColor: kPrimaryColor,
           centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {},
-          ),
         ),
         body: Column(
           children: [

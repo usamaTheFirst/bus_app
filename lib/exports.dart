@@ -16,3 +16,6 @@ export 'constants/constants.dart';
 export 'screens/payment_screen.dart';
 export 'screens/seat_screen.dart';
 export 'widgets/seat_widget.dart';
+export 'widgets/drawer_widget.dart';
+
+export "screens/driver_screens/driver_home_screen.dart";

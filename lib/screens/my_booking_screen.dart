@@ -1,7 +1,5 @@
-import 'package:bus_ticket_app/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/constants.dart';
 import '../exports.dart';
 
 class MyBooking extends StatelessWidget {

@@ -64,7 +64,7 @@ class SeatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: DrawerWidget(),
+        drawer: const DrawerWidget(),
         backgroundColor: kBackgroundColor,
         appBar: AppBar(
           title: const Text('Select Seats'),
@@ -79,15 +79,15 @@ class SeatScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(vertical: 20),
-                        margin: EdgeInsets.all(8),
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        margin: const EdgeInsets.all(8),
                         // height: MediaQuery.of(context).size.height * 0.5,
                         width: MediaQuery.of(context).size.width * 0.60,
                         height: MediaQuery.of(context).size.height * 0.70,
                         child: GridView.builder(
                             itemCount: seats.length,
                             gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 4,
                                     childAspectRatio: 3 / 3,
                                     crossAxisSpacing: 10,
@@ -104,14 +104,14 @@ class SeatScreen extends StatelessWidget {
                   children: [
                     SeatInformationWidget(
                         title: "Not Available", color: Colors.grey),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     SeatInformationWidget(
                       title: 'Available',
                       color: kPrimaryColor,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     SeatInformationWidget(
@@ -143,7 +143,7 @@ class SeatInformationWidget extends StatelessWidget {
           height: 50,
           width: 50,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
             color: color,
           ),
         ),
@@ -152,7 +152,7 @@ class SeatInformationWidget extends StatelessWidget {
         ),
         Text(
           title,
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
         )
       ],
     );

@@ -15,6 +15,7 @@ class ConfirmDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const DrawerWidget(),
       appBar: AppBar(
         title: const Text(
           'Home',
@@ -22,10 +23,6 @@ class ConfirmDetails extends StatelessWidget {
         ),
         backgroundColor: kPrimaryColor,
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {},
-        ),
         bottom: PreferredSize(
           child: Container(
             padding: const EdgeInsets.only(bottom: 10),
@@ -111,7 +108,7 @@ class ConfirmDetails extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: RoundedButton(

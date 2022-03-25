@@ -42,7 +42,8 @@ class _SeatWidgetState extends State<SeatWidget> {
         width: 10,
         height: 10,
         decoration: BoxDecoration(
-            color: color, borderRadius: BorderRadius.all(Radius.circular(10))),
+            color: color,
+            borderRadius: const BorderRadius.all(Radius.circular(10))),
       ),
     );
   }

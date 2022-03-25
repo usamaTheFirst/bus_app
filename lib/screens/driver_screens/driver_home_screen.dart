@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../exports.dart';
+import '/exports.dart';
 
-class MainUserScreen extends StatelessWidget {
-  const MainUserScreen({Key? key}) : super(key: key);
+class MainDriverScreen extends StatelessWidget {
+  const MainDriverScreen({Key? key}) : super(key: key);
 
-  static const routeName = '/main_user_screen';
+  static const routeName = '/main_driver_screen';
 
   @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
     return Scaffold(
       drawer: const DrawerWidget(),
       appBar: AppBar(
@@ -23,9 +21,9 @@ class MainUserScreen extends StatelessWidget {
         bottom: PreferredSize(
           child: Container(
             padding: const EdgeInsets.only(bottom: 10),
-            child: Text(
-              args['name'],
-              style: const TextStyle(
+            child: const Text(
+              "Driver Name",
+              style: TextStyle(
                 fontSize: 20,
                 color: kBackgroundColor,
               ),
@@ -42,19 +40,15 @@ class MainUserScreen extends StatelessWidget {
           mainAxisSpacing: 40,
           children: [
             MenuTile(
-                title: 'Book Ticket',
+                title: 'My Routes',
                 onTap: () {},
-                iconSource: FontAwesomeIcons.ticketAlt),
+                iconSource: FontAwesomeIcons.route),
             MenuTile(
-                title: 'View History',
+                title: 'Past Routes',
                 onTap: () {},
                 iconSource: FontAwesomeIcons.history),
             MenuTile(
-                title: 'My Booking',
-                onTap: () {},
-                iconSource: FontAwesomeIcons.bus),
-            MenuTile(
-                title: 'View Schedule',
+                title: 'Upcoming Routes',
                 onTap: () {},
                 iconSource: FontAwesomeIcons.calendarDay),
           ],

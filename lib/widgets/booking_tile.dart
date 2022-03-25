@@ -32,7 +32,7 @@ class BookingTile extends StatelessWidget {
                   color: kTextColor.withOpacity(.9),
                 ),
                 children: [
-                  TextSpan(
+                  const TextSpan(
                     text: 'Source: ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -41,7 +41,7 @@ class BookingTile extends StatelessWidget {
                   TextSpan(
                     text: ' $source\n',
                   ),
-                  TextSpan(
+                  const TextSpan(
                     text: 'Destination: ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,

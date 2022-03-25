@@ -18,6 +18,7 @@ class _BookTicketState extends State<BookTicket> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const DrawerWidget(),
       appBar: AppBar(
         title: const Text(
           'Book Ticket',
@@ -25,10 +26,6 @@ class _BookTicketState extends State<BookTicket> {
         ),
         backgroundColor: kPrimaryColor,
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {},
-        ),
       ),
       body: Container(
         margin: const EdgeInsets.all(20),
