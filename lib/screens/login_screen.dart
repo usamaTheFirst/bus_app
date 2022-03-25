@@ -1,4 +1,5 @@
 import 'package:bus_ticket_app/constants/constants.dart';
+import 'package:bus_ticket_app/exports.dart';
 import 'package:bus_ticket_app/widgets/rounded_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -117,6 +118,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           print(role);
                           Provider.of<UserData>(context, listen: false)
                               .setUser(_user!);
+
+                          if (role == "customer") {
+                            Navigator.pushReplacementNamed(
+                                context, MainUserScreen.routeName);
+                          } else if (role == 'driver') {
+                            Navigator.pushReplacementNamed(
+                                context, MainDriverScreen.routeName);
+                          }
                         } on FirebaseAuthException catch (e) {
                           print(e.message.toString());
                           ScaffoldMessenger.of(context).showSnackBar(

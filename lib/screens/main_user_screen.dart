@@ -1,5 +1,8 @@
+import 'package:bus_ticket_app/models/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import '../exports.dart';
 
 class MainUserScreen extends StatelessWidget {
@@ -9,8 +12,7 @@ class MainUserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+    String? name = Provider.of<UserData>(context).name;
     return Scaffold(
       drawer: const DrawerWidget(),
       appBar: AppBar(
@@ -24,7 +26,7 @@ class MainUserScreen extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.only(bottom: 10),
             child: Text(
-              args['name'],
+              name!,
               style: const TextStyle(
                 fontSize: 20,
                 color: kBackgroundColor,

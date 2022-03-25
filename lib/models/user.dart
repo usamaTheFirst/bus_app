@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 class UserData extends ChangeNotifier {
   String? name;
   String? email;
-  String? id;
+  late String id;
 
   void setUser(User user) {
     this.name = user.displayName;
@@ -16,5 +16,15 @@ class UserData extends ChangeNotifier {
     print(user.email);
 
     notifyListeners();
+  }
+
+  // write a functions to get name, id and email
+
+  String? getName() {
+    return name;
+  }
+
+  String? getEmail() {
+    return email;
   }
 }

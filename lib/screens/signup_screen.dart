@@ -199,7 +199,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         setState(() {
                           customerLoader = false;
                         });
-                        Navigator.pushNamed(context, MainUserScreen.routeName,
+                        Navigator.pushReplacementNamed(
+                            context, MainUserScreen.routeName,
                             arguments: {
                               'name': name,
                             });
@@ -257,6 +258,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           });
                           Provider.of<UserData>(context, listen: false)
                               .setUser(_user!);
+                          Navigator.pushReplacementNamed(
+                              context, MainDriverScreen.routeName);
                         } on FirebaseAuthException catch (e) {
                           print(e.toString());
                           ScaffoldMessenger.of(context).showSnackBar(
