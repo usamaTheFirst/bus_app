@@ -1,8 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 
 import 'exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'models/user.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,7 +14,9 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider.value(value: UserData()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -37,7 +42,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: kBackgroundColor,
         primarySwatch: Colors.blue,
       ),
-      home: const LoginScreen(),
+      home: const SignupScreen(),
     );
   }
 }
