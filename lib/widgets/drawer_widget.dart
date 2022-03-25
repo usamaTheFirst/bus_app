@@ -49,6 +49,13 @@ class DrawerWidget extends StatelessWidget {
             const Divider(
               thickness: 1,
             ),
+            const ListTile(
+              leading: Icon(Icons.logout),
+              title: Text("Log Out"),
+            ),
+            const Divider(
+              thickness: 1,
+            ),
           ],
         ),
       ),

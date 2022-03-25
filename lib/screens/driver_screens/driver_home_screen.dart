@@ -47,11 +47,15 @@ class MainDriverScreen extends StatelessWidget {
                 iconSource: FontAwesomeIcons.route),
             MenuTile(
                 title: 'Past Routes',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, DriverPastRoutes.routeName);
+                },
                 iconSource: FontAwesomeIcons.history),
             MenuTile(
                 title: 'Upcoming Routes',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, DriverUpcomingRoutes.routeName);
+                },
                 iconSource: FontAwesomeIcons.calendarDay),
           ],
         ),

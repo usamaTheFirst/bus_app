@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '/exports.dart';
 
-class DriverRoutes extends StatelessWidget {
-  const DriverRoutes({Key? key}) : super(key: key);
+class DriverPastRoutes extends StatelessWidget {
+  const DriverPastRoutes({Key? key}) : super(key: key);
 
-  static const routeName = "/driver-routes";
+  static const routeName = "/driver-past-routes";
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,6 @@ class DriverRoutes extends StatelessWidget {
         ),
         body: Column(
           children: [
-            const DayLabel(day: 'Today'),
             BookingTile(
                 source: 'source city',
                 destination: 'destination city',

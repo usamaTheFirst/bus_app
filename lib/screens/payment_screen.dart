@@ -1,7 +1,3 @@
-import 'dart:ffi';
-
-import 'package:bus_ticket_app/constants/constants.dart';
-import 'package:bus_ticket_app/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 
 import '../exports.dart';

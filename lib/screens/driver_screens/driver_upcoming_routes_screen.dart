@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '/exports.dart';
 
-class DriverRoutes extends StatelessWidget {
-  const DriverRoutes({Key? key}) : super(key: key);
+class DriverUpcomingRoutes extends StatelessWidget {
+  const DriverUpcomingRoutes({Key? key}) : super(key: key);
 
-  static const routeName = "/driver-routes";
+  static const routeName = "/driver-upcoming-routes";
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,12 @@ class DriverRoutes extends StatelessWidget {
         ),
         body: Column(
           children: [
-            const DayLabel(day: 'Today'),
+            const DayLabel(day: 'Monday'),
+            BookingTile(
+                source: 'source city',
+                destination: 'destination city',
+                dateTime: DateTime.now()),
+            const DayLabel(day: 'Tuesday'),
             BookingTile(
                 source: 'source city',
                 destination: 'destination city',

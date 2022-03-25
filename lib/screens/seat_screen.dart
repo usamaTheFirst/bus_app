@@ -1,8 +1,5 @@
-import 'package:bus_ticket_app/constants/constants.dart';
 import 'package:bus_ticket_app/exports.dart';
 import 'package:bus_ticket_app/models/seat.dart';
-import 'package:bus_ticket_app/widgets/drawer_widget.dart';
-import 'package:bus_ticket_app/widgets/seat_widget.dart';
 import 'package:flutter/material.dart';
 
 var seats = [
