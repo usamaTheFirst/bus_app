@@ -10,11 +10,11 @@ class UserData extends ChangeNotifier {
     this.name = user.displayName;
     this.email = user.email;
     this.id = user.uid;
-
+    print("setUser");
     print(user.uid);
     print(user.displayName);
     print(user.email);
-
+    print("End setUser");
     notifyListeners();
   }
 

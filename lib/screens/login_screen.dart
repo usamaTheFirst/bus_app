@@ -99,40 +99,42 @@ class _LoginScreenState extends State<LoginScreen> {
                       title: 'Login',
                       color: kPrimaryColor,
                       function: () async {
-                        _formKey.currentState?.validate();
+                        bool val = _formKey.currentState!.validate();
                         _formKey.currentState?.save();
+                        if (val) {
+                          try {
+                            User? _user =
+                                (await _auth.signInWithEmailAndPassword(
+                                        email: _email.toString(),
+                                        password: _password.toString()))
+                                    .user;
+                            final id = _user?.uid;
+                            String role = await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(id)
+                                .get()
+                                .then((value) => value.data()!['role']);
 
-                        try {
-                          User? _user = (await _auth.signInWithEmailAndPassword(
-                                  email: _email.toString(),
-                                  password: _password.toString()))
-                              .user;
-                          final id = _user?.uid;
-                          String role = await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(id)
-                              .get()
-                              .then((value) => value.data()!['role']);
+                            print(role);
+                            print(role);
+                            Provider.of<UserData>(context, listen: false)
+                                .setUser(_user!);
 
-                          print(role);
-                          print(role);
-                          Provider.of<UserData>(context, listen: false)
-                              .setUser(_user!);
-
-                          if (role == "customer") {
-                            Navigator.pushReplacementNamed(
-                                context, MainUserScreen.routeName);
-                          } else if (role == 'driver') {
-                            Navigator.pushReplacementNamed(
-                                context, MainDriverScreen.routeName);
+                            if (role == "customer") {
+                              Navigator.pushReplacementNamed(
+                                  context, MainUserScreen.routeName);
+                            } else if (role == 'driver') {
+                              Navigator.pushReplacementNamed(
+                                  context, MainDriverScreen.routeName);
+                            }
+                          } on FirebaseAuthException catch (e) {
+                            print(e.message.toString());
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(e.message.toString()),
+                              ),
+                            );
                           }
-                        } on FirebaseAuthException catch (e) {
-                          print(e.message.toString());
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(e.message.toString()),
-                            ),
-                          );
                         }
                       },
                     ),

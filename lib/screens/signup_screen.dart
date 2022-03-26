@@ -168,49 +168,54 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                     color: kPrimaryColor,
                     function: () async {
-                      _formKey.currentState!.validate();
-                      _formKey.currentState!.save();
-                      setState(() {
-                        // customerLoader = true;
-                      });
-
-                      try {
-                        User? _user =
-                            (await _auth.createUserWithEmailAndPassword(
-                                    email: email.toString(),
-                                    password: password.toString()))
-                                .user;
-                        final id = _user!.uid;
-                        await _user.updateDisplayName(name);
-                        await _user.reload();
-                        _user = _auth.currentUser;
-                        print(id);
-                        await FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(id)
-                            .set({
-                          'email': email,
-                          'phoneNumber': phoneNumber,
-                          'name': name,
-                          'role': 'customer',
-                        });
-                        Provider.of<UserData>(context, listen: false)
-                            .setUser(_user!);
+                      bool val = _formKey.currentState!.validate();
+                      if (val) {
+                        _formKey.currentState!.save();
                         setState(() {
-                          customerLoader = false;
+                          customerLoader = true;
                         });
-                        Navigator.pushReplacementNamed(
-                            context, MainUserScreen.routeName,
-                            arguments: {
-                              'name': name,
-                            });
-                      } on FirebaseAuthException catch (e) {
-                        print(e.toString());
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(e.message.toString()),
-                          ),
-                        );
+
+                        try {
+                          User? _user =
+                              (await _auth.createUserWithEmailAndPassword(
+                                      email: email.toString(),
+                                      password: password.toString()))
+                                  .user;
+                          final id = _user!.uid;
+                          await _user.updateDisplayName(name);
+                          await _user.reload();
+                          _user = _auth.currentUser;
+                          print(id);
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(id)
+                              .set({
+                            'email': email,
+                            'phoneNumber': phoneNumber,
+                            'name': name,
+                            'role': 'customer',
+                          });
+                          print('Starting debug');
+                          print(_user?.displayName);
+                          print("Ending debug");
+
+                          Provider.of<UserData>(context, listen: false)
+                              .setUser(_user!);
+                          setState(() {
+                            customerLoader = false;
+                          });
+                          Navigator.pushReplacementNamed(
+                            context,
+                            MainUserScreen.routeName,
+                          );
+                        } on FirebaseAuthException catch (e) {
+                          print(e.toString());
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(e.message.toString()),
+                            ),
+                          );
+                        }
                       }
                     },
                   ),
@@ -227,50 +232,52 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                       color: kPrimaryColor,
                       function: () async {
-                        _formKey.currentState!.validate();
-                        _formKey.currentState!.save();
-                        setState(() {
-                          // customerLoader = true;
-                        });
-
-                        try {
+                        bool val = _formKey.currentState!.validate();
+                        if (val) {
+                          _formKey.currentState!.save();
                           setState(() {
-                            driverLoader = true;
+                            customerLoader = true;
                           });
-                          User? _user =
-                              (await _auth.createUserWithEmailAndPassword(
-                                      email: email.toString(),
-                                      password: password.toString()))
-                                  .user;
-                          final id = _user!.uid;
-                          print(id);
-                          await _user.reload();
-                          _user = _auth.currentUser;
 
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(id)
-                              .set({
-                            'email': email,
-                            'phoneNumber': phoneNumber,
-                            'name': name,
-                            'role': 'driver',
-                          });
-                          Provider.of<UserData>(context, listen: false)
-                              .setUser(_user!);
-                          Navigator.pushReplacementNamed(
-                              context, MainDriverScreen.routeName);
-                        } on FirebaseAuthException catch (e) {
-                          print(e.toString());
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(e.message.toString()),
-                            ),
-                          );
+                          try {
+                            setState(() {
+                              driverLoader = true;
+                            });
+                            User? _user =
+                                (await _auth.createUserWithEmailAndPassword(
+                                        email: email.toString(),
+                                        password: password.toString()))
+                                    .user;
+                            final id = _user!.uid;
+                            print(id);
+                            await _user.reload();
+                            _user = _auth.currentUser;
+
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(id)
+                                .set({
+                              'email': email,
+                              'phoneNumber': phoneNumber,
+                              'name': name,
+                              'role': 'driver',
+                            });
+                            Provider.of<UserData>(context, listen: false)
+                                .setUser(_user!);
+                            Navigator.pushReplacementNamed(
+                                context, MainDriverScreen.routeName);
+                            setState(() {
+                              customerLoader = false;
+                            });
+                          } on FirebaseAuthException catch (e) {
+                            print(e.toString());
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(e.message.toString()),
+                              ),
+                            );
+                          }
                         }
-                        setState(() {
-                          customerLoader = false;
-                        });
                       }),
                 ],
               ),

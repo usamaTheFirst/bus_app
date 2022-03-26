@@ -70,6 +70,7 @@ class _ChangerState extends State<Changer> {
   bool firstTime = true;
 
   getRole() async {
+    print('Calling get role');
     final _user = FirebaseAuth.instance.currentUser;
     String? id = _user?.uid;
 
@@ -83,6 +84,8 @@ class _ChangerState extends State<Changer> {
         this.role = role;
         firstTime = false;
       });
+      print('Before calling provider in get role');
+      print(_user?.displayName);
       Provider.of<UserData>(context, listen: false).setUser(_user!);
     }
   }
