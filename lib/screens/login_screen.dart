@@ -21,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   String? _email, _password;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool loader = false;
 
   @override
   Widget build(BuildContext context) {
@@ -96,13 +97,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         onSaved: (value) => _password = value.toString().trim(),
                       ),
                     ),
-                    RoundedButton(
-                      title: 'Login',
+                    SpinnerButton(
+                      child: loader
+                          ? const CircularProgressIndicator()
+                          : const Text(
+                              'Login',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: 'Roboto',
+                                color: Colors.white,
+                              ),
+                            ),
                       color: kPrimaryColor,
                       function: () async {
                         bool val = _formKey.currentState!.validate();
-                        _formKey.currentState?.save();
+
                         if (val) {
+                          _formKey.currentState?.save();
+                          setState(() {
+                            loader = true;
+                          });
                           try {
                             User? _user =
                                 (await _auth.signInWithEmailAndPassword(
@@ -116,23 +130,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                 .get()
                                 .then((value) => value.data()!['role']);
 
-                            print(role);
-                            print(role);
                             Provider.of<UserData>(context, listen: false)
                                 .setUserData(_user?.displayName, _user?.email,
                                     _user!.uid);
 
-                            // if (role == "customer") {
-                            //   Navigator.pushReplacementNamed(
-                            //       context, MainUserScreen.routeName);
-                            // } else if (role == 'driver') {
-                            //   Navigator.pushReplacementNamed(
-                            //       context, MainDriverScreen.routeName);
-                            // } else if (role == 'admin') {
-                            //   Navigator.pushReplacementNamed(
-                            //       context, AdminHomeScreen.routeName);
-                            // }
-
+                            if (role == "customer") {
+                              Navigator.pushReplacementNamed(
+                                  context, MainUserScreen.routeName);
+                            } else if (role == 'driver') {
+                              Navigator.pushReplacementNamed(
+                                  context, MainDriverScreen.routeName);
+                            } else if (role == 'admin') {
+                              Navigator.pushReplacementNamed(
+                                  context, AdminHomeScreen.routeName);
+                            }
                           } on FirebaseAuthException catch (e) {
                             print(e.message.toString());
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -141,6 +152,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             );
                           }
+                          setState(() {
+                            loader = false;
+                          });
                         }
                       },
                     ),
