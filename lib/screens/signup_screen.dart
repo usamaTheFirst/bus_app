@@ -185,7 +185,9 @@ class _SignupScreenState extends State<SignupScreen> {
                           await _user.updateDisplayName(name);
                           await _user.reload();
                           _user = _auth.currentUser;
-                          print(id);
+                          Provider.of<UserData>(context, listen: false)
+                              .setUserData(
+                                  _user?.displayName, _user?.email, _user!.uid);
                           await FirebaseFirestore.instance
                               .collection('users')
                               .doc(id)
@@ -195,12 +197,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             'name': name,
                             'role': 'customer',
                           });
-                          print('Starting debug');
-                          print(_user?.displayName);
-                          print("Ending debug");
 
-                          Provider.of<UserData>(context, listen: false)
-                              .setUser(_user!);
                           setState(() {
                             customerLoader = false;
                           });
@@ -252,7 +249,9 @@ class _SignupScreenState extends State<SignupScreen> {
                             print(id);
                             await _user.reload();
                             _user = _auth.currentUser;
-
+                            Provider.of<UserData>(context, listen: false)
+                                .setUserData(_user?.displayName, _user?.email,
+                                    _user!.uid);
                             await FirebaseFirestore.instance
                                 .collection('users')
                                 .doc(id)
@@ -262,8 +261,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               'name': name,
                               'role': 'driver',
                             });
-                            Provider.of<UserData>(context, listen: false)
-                                .setUser(_user!);
+
                             Navigator.pushReplacementNamed(
                                 context, MainDriverScreen.routeName);
                             setState(() {

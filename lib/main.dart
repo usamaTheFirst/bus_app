@@ -1,3 +1,4 @@
+import 'package:bus_ticket_app/screens/loader_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -70,7 +71,6 @@ class _ChangerState extends State<Changer> {
   bool firstTime = true;
 
   getRole() async {
-    print('Calling get role');
     final _user = FirebaseAuth.instance.currentUser;
     String? id = _user?.uid;
 
@@ -84,9 +84,8 @@ class _ChangerState extends State<Changer> {
         this.role = role;
         firstTime = false;
       });
-      print('Before calling provider in get role');
-      print(_user?.displayName);
-      Provider.of<UserData>(context, listen: false).setUser(_user!);
+      Provider.of<UserData>(context, listen: false)
+          .setUserData(_user?.displayName, _user?.email, _user!.uid);
     }
   }
 
@@ -95,10 +94,12 @@ class _ChangerState extends State<Changer> {
     return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+        if (!snapshot.hasData) {
+          print("No data");
+          return const HomePage();
         }
         if (snapshot.hasData) {
+          print("Has data");
           getRole();
           if (role == 'customer') {
             return const MainUserScreen();
@@ -106,8 +107,8 @@ class _ChangerState extends State<Changer> {
             return const MainDriverScreen();
           }
         }
-
-        return const HomePage();
+        print('Loading');
+        return const LoaderScreen();
       },
     );
   }
