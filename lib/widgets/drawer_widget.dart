@@ -56,8 +56,8 @@ class DrawerWidget extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.logout),
               title: Text("Log Out"),
-              onTap: () {
-                FirebaseAuth.instance.signOut();
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
               },
             ),
             const Divider(

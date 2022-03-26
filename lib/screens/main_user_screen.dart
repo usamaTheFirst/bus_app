@@ -26,7 +26,7 @@ class MainUserScreen extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.only(bottom: 10),
             child: Text(
-              name!,
+              name,
               style: const TextStyle(
                 fontSize: 20,
                 color: kBackgroundColor,

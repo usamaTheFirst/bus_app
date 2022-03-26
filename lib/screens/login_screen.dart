@@ -1,5 +1,6 @@
 import 'package:bus_ticket_app/constants/constants.dart';
 import 'package:bus_ticket_app/exports.dart';
+import 'package:bus_ticket_app/screens/admin/admin_home_screen.dart';
 import 'package:bus_ticket_app/widgets/rounded_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -127,6 +128,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             } else if (role == 'driver') {
                               Navigator.pushReplacementNamed(
                                   context, MainDriverScreen.routeName);
+                            } else if (role == 'admin') {
+                              Navigator.pushReplacementNamed(
+                                  context, AdminHomeScreen.routeName);
                             }
                           } on FirebaseAuthException catch (e) {
                             print(e.message.toString());

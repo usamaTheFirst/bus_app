@@ -1,3 +1,4 @@
+import 'package:bus_ticket_app/screens/admin/admin_home_screen.dart';
 import 'package:bus_ticket_app/screens/loader_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         DriverPastRoutes.routeName: (context) => const DriverPastRoutes(),
         DriverUpcomingRoutes.routeName: (context) =>
             const DriverUpcomingRoutes(),
+        AdminHomeScreen.routeName: (context) => const AdminHomeScreen(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -92,23 +94,26 @@ class _ChangerState extends State<Changer> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseAuth.instance.authStateChanges(),
+      stream: FirebaseAuth.instance.userChanges(),
       builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const LoaderScreen();
+        }
         if (!snapshot.hasData) {
           print("No data");
           return const HomePage();
-        }
-        if (snapshot.hasData) {
+        } else if (snapshot.hasData) {
           print("Has data");
           getRole();
           if (role == 'customer') {
             return const MainUserScreen();
           } else if (role == 'driver') {
             return const MainDriverScreen();
+          } else if (role == 'admin') {
+            return AdminHomeScreen();
           }
         }
-        print('Loading');
-        return const LoaderScreen();
+        return const HomePage();
       },
     );
   }
