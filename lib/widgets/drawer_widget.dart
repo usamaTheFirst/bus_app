@@ -58,6 +58,7 @@ class DrawerWidget extends StatelessWidget {
               title: Text("Log Out"),
               onTap: () async {
                 await FirebaseAuth.instance.signOut();
+                Navigator.of(context).popUntil((route) => route.isFirst);
               },
             ),
             const Divider(

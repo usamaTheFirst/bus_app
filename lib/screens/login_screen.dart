@@ -122,16 +122,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                 .setUserData(_user?.displayName, _user?.email,
                                     _user!.uid);
 
-                            if (role == "customer") {
-                              Navigator.pushReplacementNamed(
-                                  context, MainUserScreen.routeName);
-                            } else if (role == 'driver') {
-                              Navigator.pushReplacementNamed(
-                                  context, MainDriverScreen.routeName);
-                            } else if (role == 'admin') {
-                              Navigator.pushReplacementNamed(
-                                  context, AdminHomeScreen.routeName);
-                            }
+                            // if (role == "customer") {
+                            //   Navigator.pushReplacementNamed(
+                            //       context, MainUserScreen.routeName);
+                            // } else if (role == 'driver') {
+                            //   Navigator.pushReplacementNamed(
+                            //       context, MainDriverScreen.routeName);
+                            // } else if (role == 'admin') {
+                            //   Navigator.pushReplacementNamed(
+                            //       context, AdminHomeScreen.routeName);
+                            // }
+
                           } on FirebaseAuthException catch (e) {
                             print(e.message.toString());
                             ScaffoldMessenger.of(context).showSnackBar(

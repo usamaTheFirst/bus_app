@@ -2,6 +2,8 @@ import 'package:bus_ticket_app/screens/admin/admin_home_screen.dart';
 import 'package:bus_ticket_app/screens/loader_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
@@ -91,29 +93,27 @@ class _ChangerState extends State<Changer> {
     }
   }
 
+  Widget getScreen(AsyncSnapshot<Object?> snapshot) {
+    if (snapshot.hasData) {
+      getRole();
+      if (role == 'customer') {
+        return const MainUserScreen();
+      } else if (role == 'driver') {
+        return const MainDriverScreen();
+      } else {
+        return AdminHomeScreen();
+      }
+    } else {
+      return const HomePage();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseAuth.instance.userChanges(),
+      stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const LoaderScreen();
-        }
-        if (!snapshot.hasData) {
-          print("No data");
-          return const HomePage();
-        } else if (snapshot.hasData) {
-          print("Has data");
-          getRole();
-          if (role == 'customer') {
-            return const MainUserScreen();
-          } else if (role == 'driver') {
-            return const MainDriverScreen();
-          } else if (role == 'admin') {
-            return AdminHomeScreen();
-          }
-        }
-        return const HomePage();
+        return getScreen(snapshot);
       },
     );
   }
