@@ -1,4 +1,5 @@
 import 'package:bus_ticket_app/models/seat.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Bus {
   late String id;
@@ -30,5 +31,11 @@ class Bus {
           .toList(),
       'totalSeats': totalSeats,
     };
+  }
+
+  addBusToServer() async {
+    String id = (await FirebaseFirestore.instance
+        .collection("buses")
+        .add(toJson())) as String;
   }
 }

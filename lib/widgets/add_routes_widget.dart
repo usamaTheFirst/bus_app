@@ -1,4 +1,8 @@
+import 'package:bus_ticket_app/models/bus_route_bag.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/bus_route.dart';
 
 class AddRoute extends StatefulWidget {
   const AddRoute({Key? key}) : super(key: key);
@@ -86,7 +90,10 @@ class _AddRouteState extends State<AddRoute> {
                       .then(
                     (value) {
                       setState(() {
-                        _timeController.text = value.toString();
+                        final localizations = MaterialLocalizations.of(context);
+                        final formattedTimeOfDay =
+                            localizations.formatTimeOfDay(value!);
+                        _timeController.text = formattedTimeOfDay;
                       });
                     },
                   );
@@ -96,7 +103,23 @@ class _AddRouteState extends State<AddRoute> {
                     : Text(_timeController.text)),
             RaisedButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {}
+                if (_formKey.currentState!.validate()) {
+                  print(_sourceController.text);
+                  print(_destinationController.text);
+                  print(_priceController.text);
+                  print(_seatController.text);
+                  print(_timeController.text);
+
+                  Provider.of<BusRouteBag>(context, listen: false).addBusRoute(
+                    source: _sourceController.text,
+                    destination: _destinationController.text,
+                    price: int.parse(_priceController.text),
+                    numberOfSeats: int.parse(_seatController.text),
+                    time: _timeController.text,
+                    busNumber: 're',
+                  );
+                  Navigator.pop(context);
+                }
               },
               child: const Text('Add Route'),
             ),

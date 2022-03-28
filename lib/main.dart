@@ -7,6 +7,7 @@ import 'exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'models/bus_route_bag.dart';
 import 'models/user.dart';
 
 Future<void> main() async {
@@ -18,6 +19,7 @@ Future<void> main() async {
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider.value(value: UserData()),
+    ChangeNotifierProvider.value(value: BusRouteBag()),
   ], child: const MyApp()));
 }
 

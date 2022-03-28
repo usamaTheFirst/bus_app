@@ -24,7 +24,7 @@ class DriverRoutes extends StatelessWidget {
             BookingTile(
                 source: 'source city',
                 destination: 'destination city',
-                dateTime: DateTime.now()),
+                time: TimeOfDay.now().toString()),
           ],
         ));
   }

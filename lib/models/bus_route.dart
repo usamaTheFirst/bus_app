@@ -1,41 +1,50 @@
+import 'package:bus_ticket_app/models/bus.dart';
+import 'package:bus_ticket_app/models/seat.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class BusRoute {
   late String routeId;
   late String source;
   late String destination;
+  late int price;
   late String busNumber;
-  late String price;
-  late TimeOfDay time;
-
+  late String time;
+  late int numberOfSeats;
+  List<Seat> seats = [];
   //write constructor
-  BusRoute(
-      {required this.routeId,
-      required this.source,
-      required this.destination,
-      required this.busNumber,
-      required this.price,
-      required this.time});
+  BusRoute({
+    required this.routeId,
+    required this.source,
+    required this.destination,
+    required this.price,
+    required this.busNumber,
+    required this.time,
+    required this.numberOfSeats,
+    required this.seats,
+  });
 
   toJson() {
     return {
-      'routeId': routeId,
       'source': source,
       'destination': destination,
-      'busNumber': busNumber,
       'price': price,
+      'busNumber': busNumber,
       'time': time.toString(),
+      'numberOfSeats': numberOfSeats,
     };
   }
 
   factory BusRoute.fromJson(Map<String, dynamic> json) {
     return BusRoute(
-      routeId: json['routeId'],
       source: json['source'],
       destination: json['destination'],
-      busNumber: json['busNumber'],
-      price: json['price'],
-      time: TimeOfDay.fromDateTime(DateTime.parse(json['time'])),
+      price: int.parse(json['price']),
+      busNumber: (json['busNumber']),
+      numberOfSeats: int.parse(json['numberOfSeats']),
+      seats: List<Seat>.from(json['seats'].map((x) => Seat.fromJson(x))),
+      time: json['time'],
+      routeId: 'routeId',
     );
   }
 }

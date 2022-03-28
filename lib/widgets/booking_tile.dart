@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../exports.dart';
 
@@ -8,12 +7,12 @@ class BookingTile extends StatelessWidget {
       {Key? key,
       required this.source,
       required this.destination,
-      required this.dateTime})
+      required this.time})
       : super(key: key);
 
   final String source;
   final String destination;
-  final DateTime dateTime;
+  final String time;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +54,7 @@ class BookingTile extends StatelessWidget {
             ),
           ),
           subtitle: Text(
-            'Date: ${DateFormat.yMd().format(dateTime)}\nTime: ${DateFormat.jm().format(dateTime)}',
+            'Time: ${time.toString()}',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.normal,

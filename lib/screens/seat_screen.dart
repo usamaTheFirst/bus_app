@@ -4,52 +4,32 @@ import 'package:flutter/material.dart';
 
 var seats = [
   Seat(
-    id: 122,
+    id: '122',
     price: 133,
     confirm: true,
   ),
   Seat(
-    id: 122,
+    id: '122',
     price: 133,
     confirm: false,
   ),
   Seat(
-    id: 122,
+    id: '122',
     price: 133,
     confirm: true,
   ),
   Seat(
-    id: 122,
+    id: '122',
     price: 133,
     confirm: false,
   ),
   Seat(
-    id: 122,
+    id: '122',
     price: 133,
     confirm: true,
   ),
   Seat(
-    id: 122,
-    price: 133,
-    confirm: false,
-  ),
-  Seat(
-    id: 122,
-    price: 133,
-    confirm: true,
-  ),
-  Seat(
-    id: 122,
-    price: 133,
-    confirm: false,
-  ),
-  Seat(
-    id: 122,
-    price: 133,
-    confirm: true,
-  ),
-  Seat(
-    id: 122,
+    id: 122.toString(),
     price: 133,
     confirm: false,
   ),

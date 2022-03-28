@@ -1,4 +1,6 @@
+import 'package:bus_ticket_app/models/bus_route_bag.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../exports.dart';
 
@@ -18,27 +20,38 @@ class ManageRoutes extends StatelessWidget {
         backgroundColor: kPrimaryColor,
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          BookingTile(
-              source: 'source city',
-              destination: 'destination city',
-              dateTime: DateTime.now()),
-          BookingTile(
-              source: 'source city',
-              destination: 'destination city',
-              dateTime: DateTime.now()),
-          BookingTile(
-              source: 'source city',
-              destination: 'destination city',
-              dateTime: DateTime.now()),
-          const Spacer(),
-        ],
+      body: FutureBuilder(
+        future:
+            Provider.of<BusRouteBag>(context, listen: false).fetchBusRoutes(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.error != null) {
+            return Center(
+              child: Text('An error occurred!'),
+            );
+          } else {
+            return Consumer<BusRouteBag>(
+              builder: (ctx, busroutes, child) => ListView.builder(
+                itemCount: busroutes.busRoutes.length,
+                itemBuilder: (context, index) {
+                  return BookingTile(
+                      source: busroutes.busRoutes[index].source,
+                      destination: busroutes.busRoutes[index].destination,
+                      time: busroutes.busRoutes[index].time);
+                },
+              ),
+            );
+          }
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
+            isScrollControlled: true,
             context: context,
             builder: (context) {
               return AddRoute();

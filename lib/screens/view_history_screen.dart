@@ -23,15 +23,15 @@ class ViewHistory extends StatelessWidget {
             BookingTile(
                 source: 'source city',
                 destination: 'destination city',
-                dateTime: DateTime.now()),
+                time: TimeOfDay.now().toString()),
             BookingTile(
                 source: 'source city',
                 destination: 'destination city',
-                dateTime: DateTime.now()),
+                time: TimeOfDay.now().toString()),
             BookingTile(
                 source: 'source city',
                 destination: 'destination city',
-                dateTime: DateTime.now()),
+                time: TimeOfDay.now().toString()),
           ],
         ));
   }
