@@ -1,15 +1,62 @@
-import 'package:bus_ticket_app/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../exports.dart';
 
 class AdminHomeScreen extends StatelessWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
-  static const String routeName = '/admin/home';
+  static const String routeName = '/admin-home';
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: const Scaffold(
-      body: Center(child: Text('Admin Home Screen')),
-      drawer: DrawerWidget(),
-    ));
+    return Scaffold(
+      drawer: const DrawerWidget(),
+      appBar: AppBar(
+        title: const Text(
+          'Admin Home',
+          style: TextStyle(fontSize: 24),
+        ),
+        backgroundColor: kPrimaryColor,
+        centerTitle: true,
+        bottom: PreferredSize(
+          child: Container(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: const Text(
+              "Admin Name",
+              style: TextStyle(
+                fontSize: 20,
+                color: kBackgroundColor,
+              ),
+            ),
+          ),
+          preferredSize: const Size.fromHeight(40),
+        ),
+      ),
+      body: Container(
+        margin: const EdgeInsets.all(20),
+        child: GridView.count(
+          crossAxisCount: 2,
+          crossAxisSpacing: 40,
+          mainAxisSpacing: 40,
+          children: [
+            MenuTile(
+                title: 'Manage Routes',
+                onTap: () {
+                  Navigator.pushNamed(context, ManageRoutes.routeName);
+                },
+                iconSource: FontAwesomeIcons.edit),
+            MenuTile(
+                title: 'Add Route',
+                onTap: () {
+                  Navigator.pushNamed(context, AddRoute.routeName);
+                },
+                iconSource: FontAwesomeIcons.plus),
+            MenuTile(
+                title: 'Upcoming Routes',
+                onTap: () {},
+                iconSource: FontAwesomeIcons.calendarDay),
+          ],
+        ),
+      ),
+    );
   }
 }

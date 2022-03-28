@@ -6,15 +6,4 @@ class Bus {
   late int totalSeats;
 
   Bus({required this.id, required this.seats, required this.totalSeats});
-
-  factory Bus.fromJson(Map<String, dynamic> json) {
-    return Bus(
-      id: json['id'],
-      seats: json['seats'].map<Seat>((seat) => ,
-      totalSeats: json['totalSeats'],
-    );
-
-}
-
-
 }

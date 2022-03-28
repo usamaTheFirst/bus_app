@@ -1,8 +1,4 @@
-import 'package:bus_ticket_app/screens/admin/admin_home_screen.dart';
-import 'package:bus_ticket_app/screens/loader_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -50,13 +46,14 @@ class MyApp extends StatelessWidget {
         DriverUpcomingRoutes.routeName: (context) =>
             const DriverUpcomingRoutes(),
         AdminHomeScreen.routeName: (context) => const AdminHomeScreen(),
+        ManageRoutes.routeName: (context) => const ManageRoutes(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(
         scaffoldBackgroundColor: kBackgroundColor,
         primarySwatch: Colors.blue,
       ),
-      home: Changer(),
+      home: const Changer(),
     );
   }
 }
@@ -101,7 +98,7 @@ class _ChangerState extends State<Changer> {
       } else if (role == 'driver') {
         return const MainDriverScreen();
       } else {
-        return AdminHomeScreen();
+        return const AdminHomeScreen();
       }
     } else {
       return const HomePage();
