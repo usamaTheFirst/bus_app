@@ -1,4 +1,6 @@
-class Seat {
+import 'package:flutter/cupertino.dart';
+
+class Seat extends ChangeNotifier {
   int id;
   int price;
   bool status = false;
@@ -19,4 +21,16 @@ class Seat {
       confirm = !confirm;
     }
   }
+
+  factory Seat.fromJson(Map<String, dynamic> json) => Seat(
+        id: json["id"],
+        price: json["price"],
+        confirm: json["confirm"],
+      );
+
+  toJson() => {
+        "id": id,
+        "price": price,
+        "confirm": confirm,
+      };
 }
