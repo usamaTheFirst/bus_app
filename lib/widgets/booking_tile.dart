@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../exports.dart';
@@ -8,17 +9,22 @@ class BookingTile extends StatelessWidget {
     required this.source,
     required this.destination,
     required this.time,
+    required this.price,
   }) : super(key: key);
 
   final String source;
   final String destination;
-  final DateTime time;
+  final Timestamp time;
+  final int price;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         elevation: 2,
         child: ListTile(
           minVerticalPadding: 20,
@@ -27,8 +33,8 @@ class BookingTile extends StatelessWidget {
             child: RichText(
               text: TextSpan(
                 style: TextStyle(
-                  fontSize: 20,
-                  color: kTextColor.withOpacity(.9),
+                  fontSize: 18,
+                  color: kTextColor.withOpacity(.8),
                 ),
                 children: [
                   const TextSpan(
@@ -47,19 +53,47 @@ class BookingTile extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: ' $destination',
+                    text: ' $destination\n',
+                  ),
+                  WidgetSpan(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    ),
+                  ),
+                  const TextSpan(
+                    text: 'Price: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' Rs. $price\n',
+                  ),
+                  WidgetSpan(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    ),
+                  ),
+                  const TextSpan(
+                    text: 'Date: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' ${time.toString()}\n',
+                  ),
+                  const TextSpan(
+                    text: 'Time: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' ${time.toString()}',
                   ),
                 ],
               ),
-            ),
-          ),
-          subtitle: Text(
-            'Time: ${time.toString()}',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.normal,
-              letterSpacing: 1,
-              color: kTextColor.withOpacity(.9),
             ),
           ),
           textColor: kTextColor,

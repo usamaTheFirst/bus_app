@@ -1,6 +1,5 @@
-import 'package:bus_ticket_app/models/trip_history.dart';
 import 'package:bus_ticket_app/models/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +41,10 @@ class ViewHistory extends StatelessWidget {
                       return BookingTile(
                         source: udata.history[index].source,
                         destination: udata.history[index].destination,
-                        time: DateTime.now(),
+                        time: Timestamp.fromDate(
+                          DateTime.now(),
+                        ),
+                        price: int.parse(udata.history[index].price),
                       );
                     },
                   );

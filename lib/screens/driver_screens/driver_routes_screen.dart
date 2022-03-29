@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '/exports.dart';
@@ -22,9 +23,13 @@ class DriverRoutes extends StatelessWidget {
           children: [
             const DayLabel(day: 'Today'),
             BookingTile(
-                source: 'source city',
-                destination: 'destination city',
-                time: DateTime.now()),
+              source: 'source city',
+              destination: 'destination city',
+              time: Timestamp.fromDate(
+                DateTime.now(),
+              ),
+              price: 100,
+            ),
           ],
         ));
   }

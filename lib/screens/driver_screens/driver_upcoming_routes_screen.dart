@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '/exports.dart';
@@ -22,14 +23,13 @@ class DriverUpcomingRoutes extends StatelessWidget {
           children: [
             const DayLabel(day: 'Monday'),
             BookingTile(
-                source: 'source city',
-                destination: 'destination city',
-                time: DateTime.now()),
-            const DayLabel(day: 'Tuesday'),
-            BookingTile(
-                source: 'source city',
-                destination: 'destination city',
-                time: DateTime.now()),
+              source: 'source city',
+              destination: 'destination city',
+              time: Timestamp.fromDate(
+                DateTime.now(),
+              ),
+              price: 100,
+            ),
           ],
         ));
   }

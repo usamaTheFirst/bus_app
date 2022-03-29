@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '/exports.dart';
@@ -21,9 +22,13 @@ class DriverPastRoutes extends StatelessWidget {
         body: Column(
           children: [
             BookingTile(
-                source: 'source city',
-                destination: 'destination city',
-                time: DateTime.now()),
+              source: 'source city',
+              destination: 'destination city',
+              time: Timestamp.fromDate(
+                DateTime.now(),
+              ),
+              price: 100,
+            ),
           ],
         ));
   }
