@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:provider/provider.dart';
 import '../../exports.dart';
+import '../../models/user.dart';
 
 class AdminHomeScreen extends StatelessWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
   static const String routeName = '/admin-home';
   @override
   Widget build(BuildContext context) {
+    String? name = Provider.of<UserData>(context).name;
     return Scaffold(
       drawer: const DrawerWidget(),
       appBar: AppBar(
@@ -20,9 +22,9 @@ class AdminHomeScreen extends StatelessWidget {
         bottom: PreferredSize(
           child: Container(
             padding: const EdgeInsets.only(bottom: 10),
-            child: const Text(
-              "Admin Name",
-              style: TextStyle(
+            child: Text(
+              name,
+              style: const TextStyle(
                 fontSize: 20,
                 color: kBackgroundColor,
               ),
@@ -44,16 +46,6 @@ class AdminHomeScreen extends StatelessWidget {
                   Navigator.pushNamed(context, ManageRoutes.routeName);
                 },
                 iconSource: FontAwesomeIcons.edit),
-            MenuTile(
-                title: 'Add Route',
-                onTap: () {
-                  Navigator.pushNamed(context, AddRoute.routeName);
-                },
-                iconSource: FontAwesomeIcons.plus),
-            MenuTile(
-                title: 'Upcoming Routes',
-                onTap: () {},
-                iconSource: FontAwesomeIcons.calendarDay),
           ],
         ),
       ),

@@ -22,11 +22,10 @@ class DrawerWidget extends StatelessWidget {
               ),
               accountName: Text(data.getName().toString()),
               accountEmail: Text(data.getEmail().toString()),
-              currentAccountPicture: const CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80'),
-                backgroundColor: Colors.transparent,
-                radius: 30,
+              currentAccountPicture: CircleAvatar(
+                child: Text(data.getName().toString()[0],
+                    style: const TextStyle(fontSize: 30)),
+                backgroundColor: kBackgroundColor,
               ),
             ),
             const ListTile(
@@ -54,8 +53,8 @@ class DrawerWidget extends StatelessWidget {
               thickness: 1,
             ),
             ListTile(
-              leading: Icon(Icons.logout),
-              title: Text("Log Out"),
+              leading: const Icon(Icons.logout),
+              title: const Text("Log Out"),
               onTap: () async {
                 await FirebaseAuth.instance.signOut();
                 Navigator.of(context).popUntil((route) => route.isFirst);

@@ -29,7 +29,7 @@ class ManageRoutes extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.error != null) {
-            return Center(
+            return const Center(
               child: Text('An error occurred!'),
             );
           } else {
@@ -37,10 +37,14 @@ class ManageRoutes extends StatelessWidget {
               builder: (ctx, busroutes, child) => ListView.builder(
                 itemCount: busroutes.busRoutes.length,
                 itemBuilder: (context, index) {
-                  return BookingTile(
+                  return BookingTileAdmin(
                       source: busroutes.busRoutes[index].source,
                       destination: busroutes.busRoutes[index].destination,
-                      time: busroutes.busRoutes[index].time);
+                      time: busroutes.busRoutes[index].time,
+                      price: busroutes.busRoutes[index].price,
+                      busNumber: busroutes.busRoutes[index].busNumber,
+                      numberOfSeats: busroutes.busRoutes[index].numberOfSeats,
+                      index: index);
                 },
               ),
             );
@@ -48,23 +52,27 @@ class ManageRoutes extends StatelessWidget {
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-            isScrollControlled: true,
-            context: context,
-            builder: (context) {
-              return AddRoute();
-            },
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+      floatingActionButton: Container(
+        margin: const EdgeInsets.only(bottom: 20, right: 20),
+        child: FloatingActionButton(
+          backgroundColor: kPrimaryColor,
+          onPressed: () {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) {
+                return const AddRoute();
+              },
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
               ),
-            ),
-          );
-        },
-        child: const Icon(Icons.add),
+            );
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

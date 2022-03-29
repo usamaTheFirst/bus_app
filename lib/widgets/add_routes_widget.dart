@@ -2,7 +2,7 @@ import 'package:bus_ticket_app/models/bus_route_bag.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/bus_route.dart';
+import '../exports.dart';
 
 class AddRoute extends StatefulWidget {
   const AddRoute({Key? key}) : super(key: key);
@@ -100,8 +100,14 @@ class _AddRouteState extends State<AddRoute> {
                   );
                 },
                 child: _timeController.text.isEmpty
-                    ? const Text('Select Time')
-                    : Text(_timeController.text)),
+                    ? const Text(
+                        'Select Time',
+                        style: TextStyle(color: kPrimaryColor),
+                      )
+                    : Text(
+                        _timeController.text,
+                        style: const TextStyle(color: kPrimaryColor),
+                      )),
             RaisedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
@@ -122,7 +128,11 @@ class _AddRouteState extends State<AddRoute> {
                   Navigator.pop(context);
                 }
               },
-              child: const Text('Add Route'),
+              child: const Text(
+                'Add Route',
+                style: TextStyle(color: Colors.white),
+              ),
+              color: kPrimaryColor,
             ),
           ],
         ),
