@@ -5,16 +5,31 @@ import 'package:provider/provider.dart';
 
 import '../exports.dart';
 
-class AddRoute extends StatefulWidget {
-  const AddRoute({Key? key}) : super(key: key);
+class EditRoute extends StatefulWidget {
+  const EditRoute(
+      {this.source,
+      this.destination,
+      this.price,
+      this.time,
+      this.busNumber,
+      this.numberOfSeats,
+      Key? key})
+      : super(key: key);
 
-  static const String routeName = '/add-routes';
+  static const String routeName = '/edit-routes';
+
+  final String? source;
+  final String? destination;
+  final int? price;
+  final Timestamp? time;
+  final String? busNumber;
+  final int? numberOfSeats;
 
   @override
-  State<AddRoute> createState() => _AddRouteState();
+  State<EditRoute> createState() => _EditRouteState();
 }
 
-class _AddRouteState extends State<AddRoute> {
+class _EditRouteState extends State<EditRoute> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   final TextEditingController _sourceController = TextEditingController();
@@ -129,8 +144,8 @@ class _AddRouteState extends State<AddRoute> {
                   print(_sourceController.text);
                   print(_destinationController.text);
                   print(_priceController.text);
-                  print(_seatController.text);
                   print(_busNumberController.text);
+                  print(_seatController.text);
                   print(_timeController.text);
 
                   Provider.of<BusRouteBag>(context, listen: false).addBusRoute(
@@ -140,7 +155,7 @@ class _AddRouteState extends State<AddRoute> {
                     numberOfSeats: int.parse(_seatController.text),
                     time: Timestamp.fromDate(
                         DateTime.parse(_timeController.text)),
-                    busNumber: _priceController.text,
+                    busNumber: _busNumberController.text,
                   );
                   Navigator.pop(context);
                 }

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../exports.dart';
 
 class BookingTileAdmin extends StatelessWidget {
@@ -151,7 +150,21 @@ class BookingTileAdmin extends StatelessWidget {
                       child: const Text('Edit',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.normal)),
-                      onPressed: () {}),
+                      onPressed: () {
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (context) {
+                            return const EditRoute();
+                          },
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                          ),
+                        );
+                      }),
                 ],
               ),
             ],

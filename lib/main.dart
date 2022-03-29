@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
         SeatScreen.routeName: (context) => const SeatScreen(),
         AvailableTicketsScreen.routeName: (context) =>
             const AvailableTicketsScreen(),
+        EditRoute.routeName: (context) => const EditRoute(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -106,9 +107,9 @@ class _ChangerState extends State<Changer> {
       } else if (role == 'driver') {
         return const MainDriverScreen();
       } else {
-        Future.delayed(Duration(seconds: 1), () {});
+        Future.delayed(const Duration(seconds: 1), () {});
 
-        return AdminHomeScreen();
+        return const AdminHomeScreen();
       }
     } else {
       return const HomePage();
