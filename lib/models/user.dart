@@ -1,3 +1,5 @@
+import 'package:bus_ticket_app/models/trip_history.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -5,6 +7,7 @@ class UserData extends ChangeNotifier {
   late String name;
   late String email;
   late String id;
+  List<TripHistory> history = [];
 
   setUserData(String? name, String? email, String id) {
     if (name != null) this.name = name;
@@ -34,5 +37,24 @@ class UserData extends ChangeNotifier {
 
   String? getEmail() {
     return email;
+  }
+
+  getHistory() async {
+    print("getHistory");
+
+    history = [];
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(id)
+        .collection('bookings')
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        print(element.data());
+
+        history.add(TripHistory.fromJSON(element.data()));
+      });
+    });
+    notifyListeners();
   }
 }

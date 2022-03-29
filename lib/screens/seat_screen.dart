@@ -47,7 +47,6 @@ class SeatScreen extends StatefulWidget {
 }
 
 class _SeatScreenState extends State<SeatScreen> {
-  final booked_seats = [];
   @override
   Widget build(BuildContext context) {
     final args =
@@ -76,16 +75,17 @@ class _SeatScreenState extends State<SeatScreen> {
                         width: MediaQuery.of(context).size.width * 0.60,
                         height: MediaQuery.of(context).size.height * 0.70,
                         child: GridView.builder(
-                            itemCount: seats.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 4,
-                                    childAspectRatio: 3 / 3,
-                                    crossAxisSpacing: 10,
-                                    mainAxisSpacing: 10),
-                            itemBuilder: (ctx, ind) =>
-                                SeatWidget(seat: seats[ind])),
-                      ),
+                          itemCount: seats.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4,
+                                  childAspectRatio: 3 / 3,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10),
+                          itemBuilder: (ctx, ind) =>
+                              SeatWidget(seat: seats[ind], index: index),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -116,11 +116,21 @@ class _SeatScreenState extends State<SeatScreen> {
             RoundedButton(
                 color: kTextColor,
                 title: 'Confirm Seats',
-                function: () {
-                  int l = Provider.of<BookedSeats>(context, listen: false)
-                      .bookedSeats
-                      .length;
-                  print(l);
+                function: () async {
+                  final bookedSeats =
+                      Provider.of<BookedSeats>(context, listen: false)
+                          .bookedSeats;
+                  int total = 0;
+                  final seats = Provider.of<BusRouteBag>(context, listen: false)
+                      .busRoutes[index]
+                      .seats;
+                  for (var seat in bookedSeats) {
+                    seats[index].confirmBooking();
+                    total += seats[index].price;
+                  }
+
+                  print(total);
+                  setState(() {});
                 })
           ],
         ));

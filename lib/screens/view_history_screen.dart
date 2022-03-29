@@ -1,4 +1,8 @@
+import 'package:bus_ticket_app/models/trip_history.dart';
+import 'package:bus_ticket_app/models/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../exports.dart';
 
@@ -18,21 +22,34 @@ class ViewHistory extends StatelessWidget {
           backgroundColor: kPrimaryColor,
           centerTitle: true,
         ),
-        body: Column(
-          children: [
-            BookingTile(
-                source: 'source city',
-                destination: 'destination city',
-                time: DateTime.now()),
-            BookingTile(
-                source: 'source city',
-                destination: 'destination city',
-                time: DateTime.now()),
-            BookingTile(
-                source: 'source city',
-                destination: 'destination city',
-                time: DateTime.now()),
-          ],
+        body: FutureBuilder(
+          future: Provider.of<UserData>(context, listen: false).getHistory(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text('Error: ${snapshot.error}'),
+              );
+            } else {
+              return Consumer<UserData>(
+                builder: (context, udata, child) {
+                  return ListView.builder(
+                    itemCount: udata.history.length,
+                    itemBuilder: (context, index) {
+                      return BookingTile(
+                        source: udata.history[index].source,
+                        destination: udata.history[index].destination,
+                        time: DateTime.parse(udata.history[index].date),
+                      );
+                    },
+                  );
+                },
+              );
+            }
+          },
         ));
   }
 }
