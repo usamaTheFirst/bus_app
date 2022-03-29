@@ -1,3 +1,4 @@
+import 'package:bus_ticket_app/screens/available_tickets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'models/bus_route_bag.dart';
+import 'models/currently_booked_seats.dart';
 import 'models/user.dart';
 
 Future<void> main() async {
@@ -20,6 +22,7 @@ Future<void> main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider.value(value: UserData()),
     ChangeNotifierProvider.value(value: BusRouteBag()),
+    ChangeNotifierProvider.value(value: BookedSeats()),
   ], child: const MyApp()));
 }
 
@@ -49,6 +52,9 @@ class MyApp extends StatelessWidget {
             const DriverUpcomingRoutes(),
         AdminHomeScreen.routeName: (context) => const AdminHomeScreen(),
         ManageRoutes.routeName: (context) => const ManageRoutes(),
+        SeatScreen.routeName: (context) => const SeatScreen(),
+        AvailableTicketsScreen.routeName: (context) =>
+            const AvailableTicketsScreen(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(

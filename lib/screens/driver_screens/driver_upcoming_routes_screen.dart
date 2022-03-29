@@ -24,12 +24,12 @@ class DriverUpcomingRoutes extends StatelessWidget {
             BookingTile(
                 source: 'source city',
                 destination: 'destination city',
-                time: TimeOfDay.now().toString()),
+                time: DateTime.now()),
             const DayLabel(day: 'Tuesday'),
             BookingTile(
                 source: 'source city',
                 destination: 'destination city',
-                time: TimeOfDay.now().toString()),
+                time: DateTime.now()),
           ],
         ));
   }

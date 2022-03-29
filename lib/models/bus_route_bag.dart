@@ -14,7 +14,7 @@ class BusRouteBag extends ChangeNotifier {
       required String destination,
       required String busNumber,
       required int numberOfSeats,
-      required String time}) async {
+      required DateTime time}) async {
     DocumentReference routeId =
         await FirebaseFirestore.instance.collection('bus_routes').add({
       'price': price,
@@ -22,7 +22,7 @@ class BusRouteBag extends ChangeNotifier {
       'destination': destination,
       'bus_number': busNumber,
       'number_of_seats': numberOfSeats,
-      'time': time.toString(),
+      'time': time.toIso8601String(),
     });
     final routeID = routeId.id;
 
@@ -68,6 +68,7 @@ class BusRouteBag extends ChangeNotifier {
                   'id': seat.id,
                   'confirm': seat['confirm'],
                   'price': seat['price'],
+                  'parentId': doc.id,
                 }));
               }));
 
@@ -78,7 +79,7 @@ class BusRouteBag extends ChangeNotifier {
         destination: doc['destination'],
         busNumber: doc['bus_number'],
         numberOfSeats: doc['number_of_seats'],
-        time: doc['time'],
+        time: DateTime.parse(doc['time']),
         seats: seats,
       ));
     }

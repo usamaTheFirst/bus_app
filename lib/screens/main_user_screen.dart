@@ -1,4 +1,5 @@
 import 'package:bus_ticket_app/models/user.dart';
+import 'package:bus_ticket_app/screens/available_tickets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -45,7 +46,10 @@ class MainUserScreen extends StatelessWidget {
           children: [
             MenuTile(
                 title: 'Book Ticket',
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(AvailableTicketsScreen.routeName);
+                },
                 iconSource: FontAwesomeIcons.ticketAlt),
             MenuTile(
                 title: 'View History',

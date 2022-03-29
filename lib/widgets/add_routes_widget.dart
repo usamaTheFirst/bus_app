@@ -86,14 +86,15 @@ class _AddRouteState extends State<AddRoute> {
             ),
             TextButton(
                 onPressed: () {
-                  showTimePicker(context: context, initialTime: TimeOfDay.now())
+                  showDatePicker(
+                          context: context,
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2101),
+                          initialDate: DateTime.now())
                       .then(
                     (value) {
                       setState(() {
-                        final localizations = MaterialLocalizations.of(context);
-                        final formattedTimeOfDay =
-                            localizations.formatTimeOfDay(value!);
-                        _timeController.text = formattedTimeOfDay;
+                        _timeController.text = value.toString();
                       });
                     },
                   );
@@ -115,7 +116,7 @@ class _AddRouteState extends State<AddRoute> {
                     destination: _destinationController.text,
                     price: int.parse(_priceController.text),
                     numberOfSeats: int.parse(_seatController.text),
-                    time: _timeController.text,
+                    time: DateTime.parse(_timeController.text),
                     busNumber: 're',
                   );
                   Navigator.pop(context);

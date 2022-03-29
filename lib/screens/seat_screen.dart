@@ -1,45 +1,59 @@
 import 'package:bus_ticket_app/exports.dart';
+import 'package:bus_ticket_app/models/bus_route_bag.dart';
+import 'package:bus_ticket_app/models/currently_booked_seats.dart';
 import 'package:bus_ticket_app/models/seat.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-var seats = [
-  Seat(
-    id: '122',
-    price: 133,
-    confirm: true,
-  ),
-  Seat(
-    id: '122',
-    price: 133,
-    confirm: false,
-  ),
-  Seat(
-    id: '122',
-    price: 133,
-    confirm: true,
-  ),
-  Seat(
-    id: '122',
-    price: 133,
-    confirm: false,
-  ),
-  Seat(
-    id: '122',
-    price: 133,
-    confirm: true,
-  ),
-  Seat(
-    id: 122.toString(),
-    price: 133,
-    confirm: false,
-  ),
-];
+// var seats = [
+//   Seat(
+//     id: '122',
+//     price: 133,
+//     confirm: true,
+//   ),
+//   Seat(
+//     id: '122',
+//     price: 133,
+//     confirm: false,
+//   ),
+//   Seat(
+//     id: '122',
+//     price: 133,
+//     confirm: true,
+//   ),
+//   Seat(
+//     id: '122',
+//     price: 133,
+//     confirm: false,
+//   ),
+//   Seat(
+//     id: '122',
+//     price: 133,
+//     confirm: true,
+//   ),
+//   Seat(
+//     id: 122.toString(),
+//     price: 133,
+//     confirm: false,
+//   ),
+// ];
 
-class SeatScreen extends StatelessWidget {
+class SeatScreen extends StatefulWidget {
   const SeatScreen({Key? key}) : super(key: key);
+  static const String routeName = '/seat';
 
   @override
+  State<SeatScreen> createState() => _SeatScreenState();
+}
+
+class _SeatScreenState extends State<SeatScreen> {
+  final booked_seats = [];
+  @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+    final index = args['index'];
+    final seats = Provider.of<BusRouteBag>(context).busRoutes[index].seats;
     return Scaffold(
         drawer: const DrawerWidget(),
         backgroundColor: kBackgroundColor,
@@ -100,7 +114,14 @@ class SeatScreen extends StatelessWidget {
               ],
             ),
             RoundedButton(
-                color: kTextColor, title: 'Confirm Seats', function: () {})
+                color: kTextColor,
+                title: 'Confirm Seats',
+                function: () {
+                  int l = Provider.of<BookedSeats>(context, listen: false)
+                      .bookedSeats
+                      .length;
+                  print(l);
+                })
           ],
         ));
   }

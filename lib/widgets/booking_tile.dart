@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import '../exports.dart';
 
 class BookingTile extends StatelessWidget {
-  const BookingTile(
-      {Key? key,
-      required this.source,
-      required this.destination,
-      required this.time})
-      : super(key: key);
+  const BookingTile({
+    Key? key,
+    required this.source,
+    required this.destination,
+    required this.time,
+  }) : super(key: key);
 
   final String source;
   final String destination;
-  final String time;
+  final DateTime time;
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,8 @@
 import 'package:bus_ticket_app/constants/constants.dart';
+import 'package:bus_ticket_app/models/currently_booked_seats.dart';
 import 'package:bus_ticket_app/models/seat.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SeatWidget extends StatefulWidget {
   const SeatWidget({Key? key, required this.seat}) : super(key: key);
@@ -33,8 +35,16 @@ class _SeatWidgetState extends State<SeatWidget> {
               setState(() {
                 if (widget.seat.isBooked) {
                   color = Colors.green;
+                  Provider.of<BookedSeats>(context, listen: false)
+                      .addBookedSeat(
+                    widget.seat,
+                  );
                 } else {
                   color = kPrimaryColor;
+                  Provider.of<BookedSeats>(context, listen: false)
+                      .removeBookedSeat(
+                    widget.seat,
+                  );
                 }
               });
             },
