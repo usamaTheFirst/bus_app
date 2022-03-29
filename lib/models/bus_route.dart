@@ -30,7 +30,7 @@ class BusRoute {
       'destination': destination,
       'price': price,
       'busNumber': busNumber,
-      'time': time.toString(),
+      'time': time,
       'numberOfSeats': numberOfSeats,
     };
   }

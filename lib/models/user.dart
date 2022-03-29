@@ -47,6 +47,7 @@ class UserData extends ChangeNotifier {
         .collection("users")
         .doc(id)
         .collection('bookings')
+        .where('date', isLessThan: DateTime.now())
         .get()
         .then((value) {
       value.docs.forEach((element) {

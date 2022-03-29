@@ -1,5 +1,6 @@
 class TripHistory {
   String source, destination, date, price;
+
   TripHistory(
       {required this.source,
       required this.destination,
@@ -9,6 +10,6 @@ class TripHistory {
   factory TripHistory.fromJSON(Map<String, dynamic> json) => TripHistory(
       source: json['source'],
       destination: json['destination'],
-      date: json['date'],
+      date: json['date'].toString(),
       price: json['price'].toString());
 }

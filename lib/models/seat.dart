@@ -54,6 +54,7 @@ class Seat extends ChangeNotifier {
       value.docs.forEach((element) {
         final source = element.data()['source'];
         final destination = element.data()['destination'];
+        final date = element.data()['time'];
 
         ffstore
             .collection('users')
@@ -66,7 +67,7 @@ class Seat extends ChangeNotifier {
           'source': source,
           'destination': destination,
           'price': price,
-          'date': DateTime.now().toIso8601String(),
+          'date': date,
         });
       });
     });

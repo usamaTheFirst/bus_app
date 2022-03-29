@@ -42,7 +42,7 @@ class ViewHistory extends StatelessWidget {
                       return BookingTile(
                         source: udata.history[index].source,
                         destination: udata.history[index].destination,
-                        time: DateTime.parse(udata.history[index].date),
+                        time: DateTime.now(),
                       );
                     },
                   );
