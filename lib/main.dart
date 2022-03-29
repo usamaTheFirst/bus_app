@@ -93,7 +93,7 @@ class _ChangerState extends State<Changer> {
         this.role = role;
         firstTime = false;
       });
-      Provider.of<UserData>(context, listen: false)
+      await Provider.of<UserData>(context, listen: false)
           .setUserData(_user?.displayName, _user?.email, _user!.uid);
     }
   }
@@ -106,7 +106,9 @@ class _ChangerState extends State<Changer> {
       } else if (role == 'driver') {
         return const MainDriverScreen();
       } else {
-        return const AdminHomeScreen();
+        Future.delayed(Duration(seconds: 1), () {});
+
+        return AdminHomeScreen();
       }
     } else {
       return const HomePage();

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../exports.dart';
@@ -16,7 +17,7 @@ class BookingTileAdmin extends StatelessWidget {
 
   final String source;
   final String destination;
-  final DateTime time;
+  final Timestamp time;
   final int price;
   final String busNumber;
   final int numberOfSeats;
@@ -104,7 +105,7 @@ class BookingTileAdmin extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: ' ${DateFormat('dd/MM/yyyy').format(time)}\n',
+                    text: ' ${time.toString()}\n',
                   ),
                   const TextSpan(
                     text: 'Time: ',
@@ -113,7 +114,7 @@ class BookingTileAdmin extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: ' ${DateFormat('hh:mm a').format(time)}',
+                    text: ' ${time.toString()}',
                   ),
                   WidgetSpan(
                     child: Container(

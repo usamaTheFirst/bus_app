@@ -13,7 +13,7 @@ class MainUserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? name = Provider.of<UserData>(context).name;
+    String? name = Provider.of<UserData>(context).getName();
     return Scaffold(
       drawer: const DrawerWidget(),
       appBar: AppBar(
@@ -27,7 +27,7 @@ class MainUserScreen extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.only(bottom: 10),
             child: Text(
-              name,
+              name!,
               style: const TextStyle(
                 fontSize: 20,
                 color: kBackgroundColor,

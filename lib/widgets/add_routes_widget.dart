@@ -1,4 +1,5 @@
 import 'package:bus_ticket_app/models/bus_route_bag.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -122,7 +123,8 @@ class _AddRouteState extends State<AddRoute> {
                     destination: _destinationController.text,
                     price: int.parse(_priceController.text),
                     numberOfSeats: int.parse(_seatController.text),
-                    time: DateTime.parse(_timeController.text),
+                    time: Timestamp.fromDate(
+                        DateTime.parse(_timeController.text)),
                     busNumber: 're',
                   );
                   Navigator.pop(context);

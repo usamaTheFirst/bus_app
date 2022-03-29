@@ -9,7 +9,8 @@ class AdminHomeScreen extends StatelessWidget {
   static const String routeName = '/admin-home';
   @override
   Widget build(BuildContext context) {
-    String? name = Provider.of<UserData>(context).name;
+    String? name = Provider.of<UserData>(context, listen: false).name;
+    print('AdminHomeScreen: $name');
     return Scaffold(
       drawer: const DrawerWidget(),
       appBar: AppBar(
@@ -23,7 +24,7 @@ class AdminHomeScreen extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.only(bottom: 10),
             child: Text(
-              name,
+              name ?? "Admin",
               style: const TextStyle(
                 fontSize: 20,
                 color: kBackgroundColor,

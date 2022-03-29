@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../exports.dart';
@@ -13,7 +14,7 @@ class BookingTileCustomer extends StatelessWidget {
 
   final String source;
   final String destination;
-  final DateTime time;
+  final Timestamp time;
   final int index;
 
   @override

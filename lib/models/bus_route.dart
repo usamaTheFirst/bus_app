@@ -9,7 +9,7 @@ class BusRoute {
   late String destination;
   late int price;
   late String busNumber;
-  late DateTime time;
+  late Timestamp time;
   late int numberOfSeats;
   List<Seat> seats = [];
   //write constructor
