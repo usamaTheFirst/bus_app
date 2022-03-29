@@ -38,13 +38,15 @@ class ManageRoutes extends StatelessWidget {
                 itemCount: busroutes.busRoutes.length,
                 itemBuilder: (context, index) {
                   return BookingTileAdmin(
-                      source: busroutes.busRoutes[index].source,
-                      destination: busroutes.busRoutes[index].destination,
-                      time: busroutes.busRoutes[index].time,
-                      price: busroutes.busRoutes[index].price,
-                      busNumber: busroutes.busRoutes[index].busNumber,
-                      numberOfSeats: busroutes.busRoutes[index].numberOfSeats,
-                      index: index);
+                    source: busroutes.busRoutes[index].source,
+                    destination: busroutes.busRoutes[index].destination,
+                    time: busroutes.busRoutes[index].time,
+                    price: busroutes.busRoutes[index].price,
+                    busNumber: busroutes.busRoutes[index].busNumber,
+                    numberOfSeats: busroutes.busRoutes[index].numberOfSeats,
+                    index: index,
+                    id: busroutes.busRoutes[index].routeId,
+                  );
                 },
               ),
             );

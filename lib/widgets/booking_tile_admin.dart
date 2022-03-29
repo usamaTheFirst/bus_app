@@ -1,10 +1,13 @@
+import 'package:bus_ticket_app/models/bus_route_bag.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../exports.dart';
 
 class BookingTileAdmin extends StatelessWidget {
   const BookingTileAdmin(
       {Key? key,
+      required this.id,
       required this.source,
       required this.destination,
       required this.time,
@@ -14,6 +17,7 @@ class BookingTileAdmin extends StatelessWidget {
       required this.index})
       : super(key: key);
 
+  final String id;
   final String source;
   final String destination;
   final Timestamp time;
@@ -138,7 +142,10 @@ class BookingTileAdmin extends StatelessWidget {
                               fontSize: 18,
                               fontWeight: FontWeight.normal,
                               color: kPrimaryColor)),
-                      onPressed: () {}),
+                      onPressed: () {
+                        Provider.of<BusRouteBag>(context, listen: false)
+                            .deleteBusRoute(id);
+                      }),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: kPrimaryColor,
@@ -155,7 +162,15 @@ class BookingTileAdmin extends StatelessWidget {
                           isScrollControlled: true,
                           context: context,
                           builder: (context) {
-                            return const EditRoute();
+                            return EditRoute(
+                              id: id,
+                              source: source,
+                              destination: destination,
+                              price: price,
+                              busNumber: busNumber,
+                              numberOfSeats: numberOfSeats,
+                              time: time,
+                            );
                           },
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(

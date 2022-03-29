@@ -6,24 +6,26 @@ import 'package:provider/provider.dart';
 import '../exports.dart';
 
 class EditRoute extends StatefulWidget {
-  const EditRoute(
+  EditRoute(
       {this.source,
       this.destination,
       this.price,
       this.time,
       this.busNumber,
       this.numberOfSeats,
-      Key? key})
+      Key? key,
+      this.id})
       : super(key: key);
 
   static const String routeName = '/edit-routes';
 
-  final String? source;
-  final String? destination;
-  final int? price;
-  final Timestamp? time;
-  final String? busNumber;
-  final int? numberOfSeats;
+  late String? source;
+  late String? destination;
+  late int? price;
+  late Timestamp? time;
+  late String? busNumber;
+  late int? numberOfSeats;
+  late String? id;
 
   @override
   State<EditRoute> createState() => _EditRouteState();
@@ -31,18 +33,6 @@ class EditRoute extends StatefulWidget {
 
 class _EditRouteState extends State<EditRoute> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-
-  final TextEditingController _sourceController = TextEditingController();
-
-  final TextEditingController _destinationController = TextEditingController();
-
-  final TextEditingController _priceController = TextEditingController();
-
-  final TextEditingController _seatController = TextEditingController();
-
-  final TextEditingController _busNumberController = TextEditingController();
-
-  final TextEditingController _timeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,65 +43,80 @@ class _EditRouteState extends State<EditRoute> {
         child: Column(
           children: [
             TextFormField(
+              initialValue: widget.source,
               decoration: const InputDecoration(
                 labelText: 'Source',
               ),
-              controller: _sourceController,
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter source';
                 }
                 return null;
               },
+              onSaved: (value) {
+                widget.source = value;
+              },
             ),
             TextFormField(
+              initialValue: widget.destination,
               decoration: const InputDecoration(
                 labelText: 'Destination',
               ),
-              controller: _destinationController,
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter destination';
                 }
                 return null;
               },
+              onSaved: (value) {
+                widget.destination = value;
+              },
             ),
             TextFormField(
+              initialValue: widget.price?.toString(),
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 labelText: 'Price',
               ),
-              controller: _priceController,
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter price';
                 }
                 return null;
               },
+              onSaved: (value) {
+                widget.price = int.parse(value!);
+              },
             ),
             TextFormField(
+              initialValue: widget.busNumber,
               decoration: const InputDecoration(
                 labelText: 'Bus Number',
               ),
-              controller: _busNumberController,
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter bus number';
                 }
                 return null;
               },
+              onSaved: (value) {
+                widget.busNumber = value;
+              },
             ),
             TextFormField(
+              initialValue: widget.numberOfSeats?.toString(),
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 labelText: 'No. of Seats',
               ),
-              controller: _seatController,
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter seats';
                 }
                 return null;
+              },
+              onSaved: (value) {
+                widget.numberOfSeats = int.parse(value!);
               },
             ),
             TextButton(
@@ -120,42 +125,32 @@ class _EditRouteState extends State<EditRoute> {
                           context: context,
                           firstDate: DateTime.now(),
                           lastDate: DateTime(2101),
-                          initialDate: DateTime.now())
+                          initialDate: DateTime.fromMillisecondsSinceEpoch(
+                              widget.time!.millisecondsSinceEpoch))
                       .then(
                     (value) {
                       setState(() {
-                        _timeController.text = value.toString();
+                        widget.time = Timestamp.fromDate(value!);
                       });
                     },
                   );
                 },
-                child: _timeController.text.isEmpty
-                    ? const Text(
-                        'Select Time',
-                        style: TextStyle(color: kPrimaryColor),
-                      )
-                    : Text(
-                        _timeController.text,
-                        style: const TextStyle(color: kPrimaryColor),
-                      )),
+                child: Text(
+                  widget.time.toString(),
+                  style: const TextStyle(color: kPrimaryColor),
+                )),
             RaisedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  print(_sourceController.text);
-                  print(_destinationController.text);
-                  print(_priceController.text);
-                  print(_busNumberController.text);
-                  print(_seatController.text);
-                  print(_timeController.text);
-
-                  Provider.of<BusRouteBag>(context, listen: false).addBusRoute(
-                    source: _sourceController.text,
-                    destination: _destinationController.text,
-                    price: int.parse(_priceController.text),
-                    numberOfSeats: int.parse(_seatController.text),
-                    time: Timestamp.fromDate(
-                        DateTime.parse(_timeController.text)),
-                    busNumber: _busNumberController.text,
+                  Provider.of<BusRouteBag>(context, listen: false)
+                      .updateBusRoute(
+                    source: widget.source.toString(),
+                    destination: widget.destination.toString(),
+                    price: int.parse(widget.price.toString()),
+                    numberOfSeats: int.parse(widget.numberOfSeats.toString()),
+                    time: Timestamp.fromDate(widget.time!.toDate()),
+                    busNumber: widget.busNumber.toString(),
+                    routeId: widget.id.toString(),
                   );
                   Navigator.pop(context);
                 }

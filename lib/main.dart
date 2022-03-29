@@ -1,4 +1,5 @@
 import 'package:bus_ticket_app/screens/available_tickets.dart';
+import 'package:bus_ticket_app/screens/loader_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
         SeatScreen.routeName: (context) => const SeatScreen(),
         AvailableTicketsScreen.routeName: (context) =>
             const AvailableTicketsScreen(),
-        EditRoute.routeName: (context) => const EditRoute(),
+        EditRoute.routeName: (context) => EditRoute(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -106,10 +107,12 @@ class _ChangerState extends State<Changer> {
         return const MainUserScreen();
       } else if (role == 'driver') {
         return const MainDriverScreen();
-      } else {
+      } else if (role == 'admin') {
         Future.delayed(const Duration(seconds: 1), () {});
 
         return const AdminHomeScreen();
+      } else {
+        return LoaderScreen();
       }
     } else {
       return const HomePage();

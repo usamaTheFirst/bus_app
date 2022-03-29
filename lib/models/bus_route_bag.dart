@@ -85,4 +85,36 @@ class BusRouteBag extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  updateBusRoute(
+      {required String routeId,
+      required int price,
+      required String source,
+      required String destination,
+      required String busNumber,
+      required int numberOfSeats,
+      required Timestamp time}) async {
+    await FirebaseFirestore.instance
+        .collection('bus_routes')
+        .doc(routeId)
+        .update({
+      'price': price,
+      'source': source,
+      'destination': destination,
+      'bus_number': busNumber,
+      'number_of_seats': numberOfSeats,
+      'time': time,
+    });
+    fetchBusRoutes();
+    notifyListeners();
+  }
+
+  deleteBusRoute(String routeId) async {
+    await FirebaseFirestore.instance
+        .collection('bus_routes')
+        .doc(routeId)
+        .delete();
+    fetchBusRoutes();
+    notifyListeners();
+  }
 }
