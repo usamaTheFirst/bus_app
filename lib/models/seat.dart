@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 class Seat extends ChangeNotifier {
@@ -31,6 +32,7 @@ class Seat extends ChangeNotifier {
         .update({
       'confirm': confirm,
     });
+    await assignSeatToUser();
   }
 
   factory Seat.fromJson(Map<String, dynamic> json) => Seat(
@@ -44,4 +46,29 @@ class Seat extends ChangeNotifier {
         "price": price,
         "confirm": confirm,
       };
+
+  assignSeatToUser() {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    final ffstore = FirebaseFirestore.instance;
+    ffstore.collection('bus_routes').get().then((value) {
+      value.docs.forEach((element) {
+        final source = element.data()['source'];
+        final destination = element.data()['destination'];
+
+        ffstore
+            .collection('users')
+            .doc(userId)
+            .collection('bookings')
+            .doc(id)
+            .set({
+          'id': id,
+          'parentId': parentId,
+          'source': source,
+          'destination': destination,
+          'price': price,
+          'date': DateTime.now().toIso8601String(),
+        });
+      });
+    });
+  }
 }

@@ -53,7 +53,10 @@ class MainUserScreen extends StatelessWidget {
                 iconSource: FontAwesomeIcons.ticketAlt),
             MenuTile(
                 title: 'View History',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushReplacementNamed(
+                      context, ViewHistory.routeName);
+                },
                 iconSource: FontAwesomeIcons.history),
             MenuTile(
                 title: 'My Booking',
