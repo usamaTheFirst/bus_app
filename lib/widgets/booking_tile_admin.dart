@@ -1,4 +1,5 @@
 import 'package:bus_ticket_app/models/bus_route_bag.dart';
+import 'package:bus_ticket_app/screens/admin/assign_driver_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -182,6 +183,13 @@ class BookingTileAdmin extends StatelessWidget {
                       }),
                 ],
               ),
+              RoundedButton(
+                  color: kTextColor,
+                  title: "Assign Driver",
+                  function: () {
+                    Navigator.pushNamed(context, AssignDriverScreen.routeName,
+                        arguments: id);
+                  }),
             ],
           ),
           textColor: kTextColor,

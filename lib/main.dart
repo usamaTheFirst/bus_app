@@ -1,3 +1,5 @@
+import 'package:bus_ticket_app/models/driver_list.dart';
+import 'package:bus_ticket_app/screens/admin/assign_driver_screen.dart';
 import 'package:bus_ticket_app/screens/available_tickets.dart';
 import 'package:bus_ticket_app/screens/loader_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,6 +24,7 @@ Future<void> main() async {
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider.value(value: UserData()),
+    ChangeNotifierProvider.value(value: DriverList()),
     ChangeNotifierProvider.value(value: BusRouteBag()),
     ChangeNotifierProvider.value(value: BookedSeats()),
   ], child: const MyApp()));
@@ -57,6 +60,7 @@ class MyApp extends StatelessWidget {
         AvailableTicketsScreen.routeName: (context) =>
             const AvailableTicketsScreen(),
         EditRoute.routeName: (context) => EditRoute(),
+        AssignDriverScreen.routeName: (context) => AssignDriverScreen(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(
