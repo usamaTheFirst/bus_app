@@ -1,6 +1,7 @@
 import 'package:bus_ticket_app/models/bus_route_bag.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../exports.dart';
@@ -28,6 +29,9 @@ class _AddRouteState extends State<AddRoute> {
   final TextEditingController _busNumberController = TextEditingController();
 
   final TextEditingController _timeController = TextEditingController();
+
+  DateTime? dateTime;
+  DateTime? date;
 
   @override
   Widget build(BuildContext context) {
@@ -109,18 +113,40 @@ class _AddRouteState extends State<AddRoute> {
                       .then(
                     (value) {
                       setState(() {
-                        _timeController.text = value.toString();
+                        //_timeController.text = value.toString();
+                        date = DateTime(value!.year, value.month, value.day);
                       });
                     },
                   );
                 },
-                child: _timeController.text.isEmpty
+                child: date == null
+                    ? const Text(
+                        'Select Date',
+                        style: TextStyle(color: kPrimaryColor),
+                      )
+                    : Text(
+                        DateFormat("dd-MM-yyyy").format(date!).toString(),
+                        style: const TextStyle(color: kPrimaryColor),
+                      )),
+            TextButton(
+                onPressed: () {
+                  showTimePicker(context: context, initialTime: TimeOfDay.now())
+                      .then(
+                    (value) {
+                      setState(() {
+                        dateTime = DateTime(date!.year, date!.month, date!.day,
+                            value!.hour, value.minute);
+                      });
+                    },
+                  );
+                },
+                child: dateTime == null
                     ? const Text(
                         'Select Time',
                         style: TextStyle(color: kPrimaryColor),
                       )
                     : Text(
-                        _timeController.text,
+                        DateFormat.jm().format(dateTime!).toString(),
                         style: const TextStyle(color: kPrimaryColor),
                       )),
             RaisedButton(
@@ -131,15 +157,14 @@ class _AddRouteState extends State<AddRoute> {
                   print(_priceController.text);
                   print(_seatController.text);
                   print(_busNumberController.text);
-                  print(_timeController.text);
+                  print(DateFormat.yMd().add_jm().format(date!).toString());
 
                   Provider.of<BusRouteBag>(context, listen: false).addBusRoute(
                     source: _sourceController.text,
                     destination: _destinationController.text,
                     price: int.parse(_priceController.text),
                     numberOfSeats: int.parse(_seatController.text),
-                    time: Timestamp.fromDate(
-                        DateTime.parse(_timeController.text)),
+                    time: Timestamp.fromDate(dateTime!),
                     busNumber: _priceController.text,
                   );
                   Navigator.pop(context);
