@@ -158,7 +158,7 @@ class _EditRouteState extends State<EditRoute> {
                 }
               },
               child: const Text(
-                'Add Route',
+                'Save Route',
                 style: TextStyle(color: Colors.white),
               ),
               color: kPrimaryColor,
