@@ -1,6 +1,7 @@
 import 'package:bus_ticket_app/models/bus_route_bag.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../exports.dart';
 
@@ -108,7 +109,8 @@ class BookingTileAdmin extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: ' ${time.toString()}\n',
+                    text:
+                        ' ${DateFormat("dd-MM-yyyy").format(DateTime.parse(time.toDate().toString()))}\n',
                   ),
                   const TextSpan(
                     text: 'Time: ',
@@ -117,7 +119,8 @@ class BookingTileAdmin extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: ' ${time.toString()}',
+                    text:
+                        ' ${DateFormat.jm().format(DateTime.fromMicrosecondsSinceEpoch(time.microsecondsSinceEpoch))}\n',
                   ),
                   WidgetSpan(
                     child: Container(
