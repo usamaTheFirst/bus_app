@@ -30,7 +30,7 @@ class AssignDriverScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return ListTile(
                         title: Text(ddata.drivers[index].name),
-                        trailing: Icon(Icons.check),
+                        trailing: const Icon(Icons.check),
                         onTap: () {
                           ddata.assignDriver(index, id);
                         },

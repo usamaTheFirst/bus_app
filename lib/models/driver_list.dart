@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class DriverData {
-  String name, id, email, busNumber;
-  DriverData(
-      {required this.name,
-      required this.id,
-      required this.email,
-      required this.busNumber});
+  String name, id, email;
+  DriverData({
+    required this.name,
+    required this.id,
+    required this.email,
+  });
 
   assignDriver(String routeId) async {
     print('assigning driver');
@@ -49,14 +49,14 @@ class DriverList extends ChangeNotifier {
   fetchDrivers() async {
     final ffb = FirebaseFirestore.instance.collection('users');
 
-    ffb.where('role', isEqualTo: 'driver').get().then((value) {
+    await ffb.where('role', isEqualTo: 'driver').get().then((value) {
       drivers = [];
       for (var doc in value.docs) {
         drivers.add(DriverData(
-            name: doc.data()['name'],
-            id: doc.id,
-            email: doc.data()['email'],
-            busNumber: doc.data()['bus_number']));
+          name: doc['name'],
+          id: doc.id,
+          email: doc['email'],
+        ));
       }
       notifyListeners();
     });
