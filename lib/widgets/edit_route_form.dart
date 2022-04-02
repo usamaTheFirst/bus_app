@@ -123,9 +123,10 @@ class _EditRouteState extends State<EditRoute> {
                 onPressed: () {
                   showDatePicker(
                           context: context,
-                          firstDate: DateTime.now(),
                           lastDate: DateTime(2101),
                           initialDate: DateTime.fromMillisecondsSinceEpoch(
+                              widget.time!.millisecondsSinceEpoch),
+                          firstDate: DateTime.fromMillisecondsSinceEpoch(
                               widget.time!.millisecondsSinceEpoch))
                       .then(
                     (value) {
@@ -142,6 +143,7 @@ class _EditRouteState extends State<EditRoute> {
             RaisedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
                   Provider.of<BusRouteBag>(context, listen: false)
                       .updateBusRoute(
                     source: widget.source.toString(),
