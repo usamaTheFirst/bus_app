@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../exports.dart';
 
@@ -62,7 +63,7 @@ class BookingTileCustomer extends StatelessWidget {
               ),
             ),
             subtitle: Text(
-              'Time: ${time.toString()}',
+              'Time: ${DateFormat.yMd().add_jm().format(DateTime.parse(time.toDate().toString()))}',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.normal,

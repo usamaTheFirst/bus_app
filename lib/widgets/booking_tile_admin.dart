@@ -39,100 +39,97 @@ class BookingTileAdmin extends StatelessWidget {
         elevation: 2,
         child: ListTile(
           minVerticalPadding: 20,
-          title: Padding(
-            padding: const EdgeInsets.only(bottom: 10.0),
-            child: RichText(
-              text: TextSpan(
-                style: TextStyle(
-                  fontSize: 18,
-                  color: kTextColor.withOpacity(.8),
-                ),
-                children: [
-                  const TextSpan(
-                    text: 'Source: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextSpan(
-                    text: ' $source\n',
-                  ),
-                  const TextSpan(
-                    text: 'Destination: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextSpan(
-                    text: ' $destination\n',
-                  ),
-                  WidgetSpan(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    ),
-                  ),
-                  const TextSpan(
-                    text: 'Price: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextSpan(
-                    text: ' Rs. $price\n',
-                  ),
-                  const TextSpan(
-                    text: 'Bus Number: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextSpan(
-                    text: ' $busNumber\n',
-                  ),
-                  const TextSpan(
-                    text: 'No. of Seats: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextSpan(
-                    text: ' $numberOfSeats',
-                  ),
-                  WidgetSpan(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    ),
-                  ),
-                  const TextSpan(
-                    text: 'Date: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextSpan(
-                    text:
-                        ' ${DateFormat("dd-MM-yyyy").format(DateTime.parse(time.toDate().toString()))}\n',
-                  ),
-                  const TextSpan(
-                    text: 'Time: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextSpan(
-                    text:
-                        ' ${DateFormat.jm().format(DateTime.fromMicrosecondsSinceEpoch(time.microsecondsSinceEpoch))}\n',
-                  ),
-                  WidgetSpan(
-                    child: Container(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: const Divider(
-                        thickness: 1.5,
-                      ),
-                    ),
-                  ),
-                ],
+          title: RichText(
+            text: TextSpan(
+              style: TextStyle(
+                fontSize: 18,
+                color: kTextColor.withOpacity(.8),
               ),
+              children: [
+                const TextSpan(
+                  text: 'Source: ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextSpan(
+                  text: ' $source\n',
+                ),
+                const TextSpan(
+                  text: 'Destination: ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextSpan(
+                  text: ' $destination\n',
+                ),
+                WidgetSpan(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  ),
+                ),
+                const TextSpan(
+                  text: 'Price: ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextSpan(
+                  text: ' Rs. $price\n',
+                ),
+                const TextSpan(
+                  text: 'Bus Number: ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextSpan(
+                  text: ' $busNumber\n',
+                ),
+                const TextSpan(
+                  text: 'No. of Seats: ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextSpan(
+                  text: ' $numberOfSeats',
+                ),
+                WidgetSpan(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  ),
+                ),
+                const TextSpan(
+                  text: 'Date: ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextSpan(
+                  text:
+                      ' ${DateFormat("dd-MM-yyyy").format(DateTime.parse(time.toDate().toString()))}\n',
+                ),
+                const TextSpan(
+                  text: 'Time: ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextSpan(
+                  text:
+                      ' ${DateFormat.jm().format(DateTime.fromMicrosecondsSinceEpoch(time.microsecondsSinceEpoch))}\n',
+                ),
+                WidgetSpan(
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: const Divider(
+                      thickness: 1.5,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           subtitle: Column(
@@ -184,15 +181,24 @@ class BookingTileAdmin extends StatelessWidget {
                           ),
                         );
                       }),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: kTextColor,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 34,
+                        ),
+                      ),
+                      child: const Text('Assign Driver',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.normal)),
+                      onPressed: () {
+                        Navigator.pushNamed(
+                            context, AssignDriverScreen.routeName,
+                            arguments: id);
+                      }),
                 ],
               ),
-              RoundedButton(
-                  color: kTextColor,
-                  title: "Assign Driver",
-                  function: () {
-                    Navigator.pushNamed(context, AssignDriverScreen.routeName,
-                        arguments: id);
-                  }),
             ],
           ),
           textColor: kTextColor,

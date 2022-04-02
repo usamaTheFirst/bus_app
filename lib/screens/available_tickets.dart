@@ -12,14 +12,15 @@ class AvailableTicketsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Available Routes'),
+          backgroundColor: kPrimaryColor,
+          title: const Text('Available Routes'),
         ),
         body: FutureBuilder(
           future:
               Provider.of<BusRouteBag>(context, listen: false).fetchBusRoutes(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
