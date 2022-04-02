@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/driver_list.dart';
 import '/exports.dart';
 
 class DriverRoutes extends StatelessWidget {
@@ -19,18 +21,34 @@ class DriverRoutes extends StatelessWidget {
           backgroundColor: kPrimaryColor,
           centerTitle: true,
         ),
-        body: Column(
-          children: [
-            const DayLabel(day: 'Today'),
-            BookingTile(
-              source: 'source city',
-              destination: 'destination city',
-              time: Timestamp.fromDate(
-                DateTime.now(),
-              ),
-              price: 100,
-            ),
-          ],
-        ));
+        body: FutureBuilder(
+            future:
+                Provider.of<DriverData>(context, listen: false).getNewRoutes(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              } else {
+                return Consumer<DriverData>(
+                  builder: (context, ddata, child) {
+                    return ListView.builder(
+                      itemCount: ddata.newRoutes.length,
+                      itemBuilder: (context, index) {
+                        return BookingTile(
+                            source: ddata.newRoutes[index].source,
+                            destination: ddata.newRoutes[index].destination,
+                            time: ddata.newRoutes[index].time,
+                            price: ddata.newRoutes[index].price);
+                      },
+                    );
+                  },
+                );
+              }
+            }));
   }
 }

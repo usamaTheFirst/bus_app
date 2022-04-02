@@ -29,10 +29,12 @@ class AssignDriverScreen extends StatelessWidget {
                     itemCount: ddata.drivers.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        title: Text(ddata.drivers[index].name),
+                        tileColor: Colors.red,
+                        title: Text(ddata.drivers[index].name.toString()),
                         trailing: Icon(Icons.check),
-                        onTap: () {
-                          ddata.assignDriver(index, id);
+                        onTap: () async {
+                          await ddata.assignDriver(index, id);
+                          Navigator.of(context).pop();
                         },
                       );
                     },

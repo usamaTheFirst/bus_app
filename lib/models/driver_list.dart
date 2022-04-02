@@ -1,13 +1,20 @@
+import 'package:bus_ticket_app/models/bus_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
-class DriverData {
-  String name, id, email, busNumber;
-  DriverData(
-      {required this.name,
-      required this.id,
-      required this.email,
-      required this.busNumber});
+class DriverData extends ChangeNotifier {
+  List<BusRoute> pastRoutes = <BusRoute>[];
+  List<BusRoute> newRoutes = <BusRoute>[];
+
+  String? name, id, email;
+
+  DriverData({
+    this.name,
+    this.id,
+    this.email,
+  });
 
   assignDriver(String routeId) async {
     print('assigning driver');
@@ -18,28 +25,77 @@ class DriverData {
         .doc(routeId)
         .update({'driver': name});
 
-    await FirebaseFirestore.instance
+    final routeData = await FirebaseFirestore.instance
         .collection("bus_routes")
         .doc(routeId)
+        .get();
+    print(routeData.data());
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(id)
+        .collection('jobs')
+        .doc(routeId)
+        .set(routeData.data() as Map<String, dynamic>);
+    // });
+  }
+
+  getPastRoutes() async {
+    pastRoutes = [];
+    final id = FirebaseAuth.instance.currentUser?.uid;
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(id)
+        .collection('jobs')
+        .where("time", isLessThan: Timestamp.now())
         .get()
-        .then((value) async {
-      final tempSource = value['source'];
-      final tempDestination = value['destination'];
-      final tempDate = value['time'];
-      final busNumber = value['bus_number'];
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(id)
-          .collection('jobs')
-          .add({
-        'name': name,
-        'email': email,
-        'source': tempSource,
-        'destination': tempDestination,
-        'time': tempDate,
-        'bus_number': busNumber,
-      });
-    });
+        .then((value) => value.docs.forEach((doc) {
+              pastRoutes.add(BusRoute(
+                  routeId: doc.id,
+                  source: doc.get("source"),
+                  destination: doc.get("destination"),
+                  price: doc.get("price"),
+                  busNumber: doc.get("bus_number"),
+                  time: doc.get("time"),
+                  numberOfSeats: doc.get("number_of_seats"),
+                  seats: []));
+              print(doc.id);
+              print(doc.get("source"));
+              print(doc.get("destination"));
+              print(doc.get("price"));
+              print(doc.get("bus_number"));
+              print(doc.get("time"));
+            }));
+    notifyListeners();
+  }
+
+  getNewRoutes() async {
+    newRoutes = [];
+    final id = FirebaseAuth.instance.currentUser?.uid;
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(id)
+        .collection('jobs')
+        .where("time", isGreaterThan: Timestamp.now())
+        .get()
+        .then((value) => value.docs.forEach((doc) {
+              newRoutes.add(BusRoute(
+                  routeId: doc.id,
+                  source: doc.get("source"),
+                  destination: doc.get("destination"),
+                  price: doc.get("price"),
+                  busNumber: doc.get("bus_number"),
+                  time: doc.get("time"),
+                  numberOfSeats: doc.get("number_of_seats"),
+                  seats: []));
+              print(doc.id);
+              print(doc.get("source"));
+              print(doc.get("destination"));
+              print(doc.get("price"));
+              print(doc.get("bus_number"));
+              print(doc.get("time"));
+            }));
+    notifyListeners();
   }
 }
 
@@ -49,14 +105,11 @@ class DriverList extends ChangeNotifier {
   fetchDrivers() async {
     final ffb = FirebaseFirestore.instance.collection('users');
 
-    ffb.where('role', isEqualTo: 'driver').get().then((value) {
+    await ffb.where('role', isEqualTo: 'driver').get().then((value) {
       drivers = [];
       for (var doc in value.docs) {
         drivers.add(DriverData(
-            name: doc.data()['name'],
-            id: doc.id,
-            email: doc.data()['email'],
-            busNumber: doc.data()['bus_number']));
+            name: doc.data()['name'], id: doc.id, email: doc.data()['email']));
       }
       notifyListeners();
     });

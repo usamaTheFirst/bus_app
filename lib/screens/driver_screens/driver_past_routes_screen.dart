@@ -1,6 +1,9 @@
+import 'package:bus_ticket_app/models/driver_list.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/bus_route.dart';
 import '/exports.dart';
 
 class DriverPastRoutes extends StatelessWidget {
@@ -19,17 +22,34 @@ class DriverPastRoutes extends StatelessWidget {
           backgroundColor: kPrimaryColor,
           centerTitle: true,
         ),
-        body: Column(
-          children: [
-            BookingTile(
-              source: 'source city',
-              destination: 'destination city',
-              time: Timestamp.fromDate(
-                DateTime.now(),
-              ),
-              price: 100,
-            ),
-          ],
-        ));
+        body: FutureBuilder(
+            future:
+                Provider.of<DriverData>(context, listen: false).getPastRoutes(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              } else {
+                return Consumer<DriverData>(
+                  builder: (context, ddata, child) {
+                    return ListView.builder(
+                      itemCount: ddata.pastRoutes.length,
+                      itemBuilder: (context, index) {
+                        return BookingTile(
+                            source: ddata.pastRoutes[index].source,
+                            destination: ddata.pastRoutes[index].destination,
+                            time: ddata.pastRoutes[index].time,
+                            price: ddata.pastRoutes[index].price);
+                      },
+                    );
+                  },
+                );
+              }
+            }));
   }
 }

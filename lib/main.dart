@@ -26,6 +26,7 @@ Future<void> main() async {
     ChangeNotifierProvider.value(value: UserData()),
     ChangeNotifierProvider.value(value: DriverList()),
     ChangeNotifierProvider.value(value: BusRouteBag()),
+    ChangeNotifierProvider.value(value: DriverData()),
     ChangeNotifierProvider.value(value: BookedSeats()),
   ], child: const MyApp()));
 }
