@@ -5,6 +5,7 @@ import 'package:bus_ticket_app/screens/loader_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 
 import 'exports.dart';
@@ -16,6 +17,10 @@ import 'models/currently_booked_seats.dart';
 import 'models/user.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey =
+      "pk_test_51Kk8BvGxayrTC90rVekDk4YfDfJVvfIInlQLTAUBLt2YeubUzMqPyud0gxLayPZ5SjbC864ibtXyoGLkLXQY4Prl00L6sCLqkT";
+  await Stripe.instance.applySettings();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,14 +66,14 @@ class MyApp extends StatelessWidget {
         AvailableTicketsScreen.routeName: (context) =>
             const AvailableTicketsScreen(),
         EditRoute.routeName: (context) => EditRoute(),
-        AssignDriverScreen.routeName: (context) => AssignDriverScreen(),
+        AssignDriverScreen.routeName: (context) => const AssignDriverScreen(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(
         scaffoldBackgroundColor: kBackgroundColor,
         primarySwatch: Colors.blue,
       ),
-      home: const Changer(),
+      home: const PaymentScreen(),
     );
   }
 }
@@ -117,7 +122,7 @@ class _ChangerState extends State<Changer> {
 
         return const AdminHomeScreen();
       } else {
-        return LoaderScreen();
+        return const LoaderScreen();
       }
     } else {
       return const HomePage();
