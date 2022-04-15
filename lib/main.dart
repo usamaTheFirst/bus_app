@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: kBackgroundColor,
         primarySwatch: Colors.blue,
       ),
-      home: const PaymentScreen(),
+      home: const Changer(),
     );
   }
 }
