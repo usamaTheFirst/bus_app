@@ -20,9 +20,22 @@ class Seat extends ChangeNotifier {
   }
 
   confirmBooking() async {
+    print(confirm);
     if (!confirm) {
       confirm = !confirm;
       status = !status;
+      print('Starting booking');
+      print(confirm);
+      final response = await FirebaseFirestore.instance
+          .collection('bus_routes')
+          .doc(parentId)
+          .collection('seats')
+          .doc(id)
+          .update({
+        'confirm': confirm,
+      });
+      await assignSeatToUser();
+      print('Booking completed');
     }
     final response = await FirebaseFirestore.instance
         .collection('bus_routes')

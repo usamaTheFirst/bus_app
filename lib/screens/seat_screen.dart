@@ -89,18 +89,29 @@ class _SeatScreenState extends State<SeatScreen> {
                   final bookedSeats =
                       Provider.of<BookedSeats>(context, listen: false)
                           .bookedSeats;
+                  print(seats[bookedSeats[0]].confirm);
                   int total = 0;
                   // final seats = Provider.of<BusRouteBag>(context, listen: false)
                   //     .busRoutes[index]
                   //     .seats;
                   for (var seat in bookedSeats) {
                     total += seats[seat].price;
+                    print(seats[seat].confirm);
                   }
 
                   await makePayment(total);
 
                   //Navigator.of(context).popUntil((route) => route.isFirst);
+                  print(total);
+                  // await makePayment(total);
+                  print(bookedSeats);
+                  for (var seat in bookedSeats) {
+                    await seats[seat].confirmBooking();
+                    print('index: $seat');
+                  }
                   setState(() {});
+                  Provider.of<BookedSeats>(context, listen: false)
+                      .clearBookedSeats();
                 })
           ],
         ));

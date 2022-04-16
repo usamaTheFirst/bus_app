@@ -14,4 +14,9 @@ class BookedSeats extends ChangeNotifier {
     _bookedSeats.remove(index);
     notifyListeners();
   }
+
+  clearBookedSeats() {
+    _bookedSeats.clear();
+    notifyListeners();
+  }
 }
