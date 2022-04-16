@@ -102,17 +102,16 @@ class _SeatScreenState extends State<SeatScreen> {
 
                   await makePayment(total);
 
-                  //Navigator.of(context).popUntil((route) => route.isFirst);
                   print(total);
                   // await makePayment(total);
                   print(bookedSeats);
-                  for (var seat in bookedSeats) {
-                    await seats[seat].confirmBooking();
-                    print('index: $seat');
-                  }
+                  // for (var seat in bookedSeats) {
+                  //   await seats[seat].confirmBooking();
+                  //   print('index: $seat');
+                  // }
                   setState(() {});
-                  Provider.of<BookedSeats>(context, listen: false)
-                      .clearBookedSeats();
+                  // Provider.of<BookedSeats>(context, listen: false)
+                  //     .clearBookedSeats();
                 })
           ],
         ));
@@ -160,18 +159,20 @@ class _SeatScreenState extends State<SeatScreen> {
         //orderPlaceApi(paymentIntentData!['id'].toString());
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("paid successfully")));
-
-        paymentIntentData = null;
         final args =
             ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
         final index = args['index'];
-        final seats = Provider.of<BusRouteBag>(context).busRoutes[index].seats;
+        final seats = Provider.of<BusRouteBag>(context, listen: false)
+            .busRoutes[index]
+            .seats;
         final bookedSeats =
             Provider.of<BookedSeats>(context, listen: false).bookedSeats;
         for (var seat in bookedSeats) {
           await seats[seat].confirmBooking();
         }
         Navigator.of(context).popUntil((route) => route.isFirst);
+        paymentIntentData = null;
+        //Navigator.pushNamedAndRemoveUntil(context, MainUserScreen.routeName, (route) => false);
       }).onError((error, stackTrace) {
         print('Exception/DISPLAYPAYMENTSHEET==> $error $stackTrace');
       });
