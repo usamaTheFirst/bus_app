@@ -59,6 +59,7 @@ class _SeatScreenState extends State<SeatScreen> {
                     ],
                   ),
                 ),
+                const SizedBox(width: 20),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -227,8 +228,8 @@ class SeatInformationWidget extends StatelessWidget {
     return Row(
       children: [
         Container(
-          height: 50,
-          width: 50,
+          height: 35,
+          width: 35,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             color: color,
