@@ -1,4 +1,3 @@
-import 'package:bus_ticket_app/constants/constants.dart';
 import 'package:bus_ticket_app/exports.dart';
 import 'package:bus_ticket_app/models/user.dart';
 import 'package:bus_ticket_app/screens/setting_screen.dart';
@@ -31,19 +30,22 @@ class DrawerWidget extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: Icon(FontAwesomeIcons.home),
-              title: Text("Home"),
+              leading: const Icon(FontAwesomeIcons.home),
+              title: const Text("Home"),
               onTap: () {
                 Navigator.of(context).pop();
-
                 String role = data.role;
+                print(role);
 
                 if (role == "admin") {
-                  Navigator.of(context).pushNamed(AdminHomeScreen.routeName);
-                } else if (role == "user") {
-                  Navigator.of(context).pushNamed(MainUserScreen.routeName);
+                  Navigator.of(context)
+                      .pushReplacementNamed(AdminHomeScreen.routeName);
+                } else if (role == "customer") {
+                  Navigator.of(context)
+                      .pushReplacementNamed(MainUserScreen.routeName);
                 } else if (role == "driver") {
-                  Navigator.of(context).pushNamed(MainDriverScreen.routeName);
+                  Navigator.of(context)
+                      .pushReplacementNamed(MainDriverScreen.routeName);
                 }
               },
             ),
@@ -51,8 +53,8 @@ class DrawerWidget extends StatelessWidget {
               thickness: 1,
             ),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text("Settings"),
+              leading: const Icon(Icons.settings),
+              title: const Text("Settings"),
               onTap: () {
                 Navigator.pushReplacementNamed(
                     context, SettingScreen.routeName);

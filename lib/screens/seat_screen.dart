@@ -7,39 +7,6 @@ import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-// var seats = [
-//   Seat(
-//     id: '122',
-//     price: 133,
-//     confirm: true,
-//   ),
-//   Seat(
-//     id: '122',
-//     price: 133,
-//     confirm: false,
-//   ),
-//   Seat(
-//     id: '122',
-//     price: 133,
-//     confirm: true,
-//   ),
-//   Seat(
-//     id: '122',
-//     price: 133,
-//     confirm: false,
-//   ),
-//   Seat(
-//     id: '122',
-//     price: 133,
-//     confirm: true,
-//   ),
-//   Seat(
-//     id: 122.toString(),
-//     price: 133,
-//     confirm: false,
-//   ),
-// ];
-
 class SeatScreen extends StatefulWidget {
   const SeatScreen({Key? key}) : super(key: key);
   static const String routeName = '/seat';
@@ -131,12 +98,9 @@ class _SeatScreenState extends State<SeatScreen> {
                     total += seats[seat].price;
                   }
 
-                  print(total);
                   await makePayment(total);
-                  for (var seat in bookedSeats) {
-                    await seats[seat].confirmBooking();
-                  }
-                  Navigator.of(context).popUntil((route) => route.isFirst);
+
+                  //Navigator.of(context).popUntil((route) => route.isFirst);
                   setState(() {});
                 })
           ],
@@ -163,8 +127,8 @@ class _SeatScreenState extends State<SeatScreen> {
 
       ///now finally display payment sheeet
       displayPaymentSheet();
-    } catch (e, s) {
-      print('exception:$e$s');
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -176,7 +140,7 @@ class _SeatScreenState extends State<SeatScreen> {
         clientSecret: paymentIntentData!['client_secret'],
         confirmPayment: true,
       ))
-          .then((newValue) {
+          .then((newValue) async {
         print('payment intent' + paymentIntentData!['id'].toString());
         print(
             'payment intent' + paymentIntentData!['client_secret'].toString());
@@ -187,6 +151,16 @@ class _SeatScreenState extends State<SeatScreen> {
             .showSnackBar(const SnackBar(content: Text("paid successfully")));
 
         paymentIntentData = null;
+        final args =
+            ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+        final index = args['index'];
+        final seats = Provider.of<BusRouteBag>(context).busRoutes[index].seats;
+        final bookedSeats =
+            Provider.of<BookedSeats>(context, listen: false).bookedSeats;
+        for (var seat in bookedSeats) {
+          await seats[seat].confirmBooking();
+        }
+        Navigator.of(context).popUntil((route) => route.isFirst);
       }).onError((error, stackTrace) {
         print('Exception/DISPLAYPAYMENTSHEET==> $error $stackTrace');
       });

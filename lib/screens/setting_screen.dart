@@ -23,9 +23,10 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     final data = Provider.of<UserData>(context, listen: false);
     return Scaffold(
-      drawer: DrawerWidget(),
+      drawer: const DrawerWidget(),
       appBar: AppBar(
-        title: Text('Setting'),
+        backgroundColor: kPrimaryColor,
+        title: const Text('Setting'),
       ),
       body: SafeArea(
         child: Column(
@@ -43,11 +44,14 @@ class _SettingScreenState extends State<SettingScreen> {
                       onChanged: (value) => name = value,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 30,
                   ),
                   nameEditable
                       ? ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: kPrimaryColor,
+                          ),
                           onPressed: () {
                             setState(() {
                               nameEditable = false;
@@ -55,10 +59,12 @@ class _SettingScreenState extends State<SettingScreen> {
                           },
                           child: const Text('Edit'))
                       : ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: kPrimaryColor,
+                          ),
                           onPressed: () {
                             setState(() async {
-                              final user =
-                                  await FirebaseAuth.instance.currentUser;
+                              final user = FirebaseAuth.instance.currentUser;
                               await user?.updateDisplayName(name);
                               await user?.reload();
                               setState(() {});
@@ -68,24 +74,28 @@ class _SettingScreenState extends State<SettingScreen> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             if (editPassword)
               ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: kPrimaryColor,
+                  ),
                   onPressed: () {
                     setState(() {
                       editPassword = false;
                     });
                   },
-                  child: Text("Change Password")),
+                  child: const Text("Change Password")),
             if (!editPassword)
               Form(
                 key: _formKey,
                 child: Column(
                   children: [
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Old Password'),
+                      decoration:
+                          const InputDecoration(labelText: 'Old Password'),
                       onChanged: (value) => oldPassword = value,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -94,11 +104,12 @@ class _SettingScreenState extends State<SettingScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'New Password'),
+                      decoration:
+                          const InputDecoration(labelText: 'New Password'),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter your old password';
@@ -112,6 +123,9 @@ class _SettingScreenState extends State<SettingScreen> {
                       onChanged: (value) => newPassword = value,
                     ),
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: kPrimaryColor,
+                      ),
                       onPressed: () async {
                         setState(() {
                           passwordLoader = true;
@@ -124,10 +138,10 @@ class _SettingScreenState extends State<SettingScreen> {
                         });
                       },
                       child: passwordLoader
-                          ? CircularProgressIndicator(
+                          ? const CircularProgressIndicator(
                               color: Colors.red,
                             )
-                          : Text("Confirm"),
+                          : const Text("Confirm"),
                     ),
                   ],
                 ),
@@ -139,18 +153,18 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   _changePassword(String currentPassword, String newPassword) async {
-    final user = await FirebaseAuth.instance.currentUser;
+    final user = FirebaseAuth.instance.currentUser;
     final cred = EmailAuthProvider.credential(
         email: user!.email.toString(), password: currentPassword);
 
-    await user?.reauthenticateWithCredential(cred).then((value) {
+    await user.reauthenticateWithCredential(cred).then((value) {
       user.updatePassword(newPassword).then((_) {
         print("Password changed");
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Password changed successfully")));
+            const SnackBar(content: Text("Password changed successfully")));
       }).catchError((error) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Error changing password")));
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Error changing password")));
       });
     }).catchError((err) {});
   }

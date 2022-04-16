@@ -24,8 +24,6 @@ class Seat extends ChangeNotifier {
       confirm = !confirm;
       status = !status;
     }
-    print('Starting booking');
-    print(confirm);
     final response = await FirebaseFirestore.instance
         .collection('bus_routes')
         .doc(parentId)
@@ -55,7 +53,7 @@ class Seat extends ChangeNotifier {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     final ffstore = FirebaseFirestore.instance;
     ffstore.collection('bus_routes').get().then((value) {
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         final source = element.data()['source'];
         final destination = element.data()['destination'];
         final date = element.data()['time'];
@@ -73,7 +71,7 @@ class Seat extends ChangeNotifier {
           'price': price,
           'date': date,
         });
-      });
+      }
     });
   }
 }

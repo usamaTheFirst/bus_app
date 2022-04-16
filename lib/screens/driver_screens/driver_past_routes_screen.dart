@@ -1,9 +1,6 @@
 import 'package:bus_ticket_app/models/driver_list.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../models/bus_route.dart';
 import '/exports.dart';
 
 class DriverPastRoutes extends StatelessWidget {

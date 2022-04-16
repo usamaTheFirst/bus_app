@@ -1,6 +1,5 @@
 import 'package:bus_ticket_app/models/trip_history.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 class UserData extends ChangeNotifier {
@@ -14,7 +13,7 @@ class UserData extends ChangeNotifier {
   setUserData(String? name, String? email, String id, String role) {
     if (name != null) this.name = name;
     if (email != null) this.email = email;
-    if (role != null) this.role = role;
+    this.role = role;
     this.id = id;
 
     notifyListeners();
@@ -43,8 +42,6 @@ class UserData extends ChangeNotifier {
   }
 
   getHistory() async {
-    print("getHistory");
-
     history = [];
     await FirebaseFirestore.instance
         .collection("users")
@@ -53,18 +50,14 @@ class UserData extends ChangeNotifier {
         .where('date', isLessThan: DateTime.now())
         .get()
         .then((value) {
-      value.docs.forEach((element) {
-        print(element.data());
-
+      for (var element in value.docs) {
         history.add(TripHistory.fromJSON(element.data()));
-      });
+      }
     });
     notifyListeners();
   }
 
   getBooking() async {
-    print("getBookings");
-
     schedule = [];
     await FirebaseFirestore.instance
         .collection("users")
@@ -73,11 +66,11 @@ class UserData extends ChangeNotifier {
         .where('date', isGreaterThan: DateTime.now())
         .get()
         .then((value) {
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         print(element.data());
 
         history.add(TripHistory.fromJSON(element.data()));
-      });
+      }
     });
     notifyListeners();
   }

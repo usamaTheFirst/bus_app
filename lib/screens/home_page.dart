@@ -1,7 +1,4 @@
-import 'package:bus_ticket_app/constants/constants.dart';
-import 'package:bus_ticket_app/screens/login_screen.dart';
-import 'package:bus_ticket_app/screens/signup_screen.dart';
-import 'package:bus_ticket_app/widgets/rounded_button.dart';
+import '../exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

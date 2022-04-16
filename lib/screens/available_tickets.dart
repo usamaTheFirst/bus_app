@@ -3,8 +3,6 @@ import 'package:bus_ticket_app/models/bus_route_bag.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/booking_tile_customer.dart';
-
 class AvailableTicketsScreen extends StatelessWidget {
   const AvailableTicketsScreen({Key? key}) : super(key: key);
   static const String routeName = '/available-tickets';

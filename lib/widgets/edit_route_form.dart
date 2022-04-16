@@ -1,6 +1,7 @@
 import 'package:bus_ticket_app/models/bus_route_bag.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../exports.dart';
@@ -33,6 +34,9 @@ class EditRoute extends StatefulWidget {
 
 class _EditRouteState extends State<EditRoute> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+
+  late DateTime dateTime;
+  late DateTime date;
 
   @override
   Widget build(BuildContext context) {
@@ -122,22 +126,54 @@ class _EditRouteState extends State<EditRoute> {
             TextButton(
                 onPressed: () {
                   showDatePicker(
-                          context: context,
-                          lastDate: DateTime(2101),
-                          initialDate: DateTime.fromMillisecondsSinceEpoch(
-                              widget.time!.millisecondsSinceEpoch),
-                          firstDate: DateTime.fromMillisecondsSinceEpoch(
-                              widget.time!.millisecondsSinceEpoch))
-                      .then(
+                    context: context,
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2101),
+                    initialDate: widget.time!.toDate(),
+                  ).then(
                     (value) {
                       setState(() {
-                        widget.time = Timestamp.fromDate(value!);
+                        date = DateTime(value!.year, value.month, value.day);
+                        DateTime time = widget.time!.toDate();
+
+                        widget.time = Timestamp.fromDate(DateTime(
+                          date.year,
+                          date.month,
+                          date.day,
+                          time.hour,
+                          time.minute,
+                        ));
+                        print(widget.time);
                       });
                     },
                   );
                 },
                 child: Text(
-                  widget.time.toString(),
+                  DateFormat("dd-MM-yyyy")
+                      .format(widget.time!.toDate())
+                      .toString(),
+                  style: const TextStyle(color: kPrimaryColor),
+                )),
+            TextButton(
+                onPressed: () {
+                  showTimePicker(
+                          context: context,
+                          initialTime:
+                              TimeOfDay.fromDateTime(widget.time!.toDate()))
+                      .then(
+                    (value) {
+                      setState(() {
+                        DateTime time = widget.time!.toDate();
+                        dateTime = DateTime(time.year, time.month, time.day,
+                            value!.hour, value.minute);
+                        print(dateTime);
+                        widget.time = Timestamp.fromDate(dateTime);
+                      });
+                    },
+                  );
+                },
+                child: Text(
+                  DateFormat.jm().format(widget.time!.toDate()).toString(),
                   style: const TextStyle(color: kPrimaryColor),
                 )),
             RaisedButton(

@@ -51,12 +51,6 @@ class MainDriverScreen extends StatelessWidget {
                   Navigator.pushNamed(context, DriverPastRoutes.routeName);
                 },
                 iconSource: FontAwesomeIcons.history),
-            MenuTile(
-                title: 'Upcoming Routes',
-                onTap: () {
-                  Navigator.pushNamed(context, DriverUpcomingRoutes.routeName);
-                },
-                iconSource: FontAwesomeIcons.calendarDay),
           ],
         ),
       ),

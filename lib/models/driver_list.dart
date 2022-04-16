@@ -17,9 +17,6 @@ class DriverData extends ChangeNotifier {
   });
 
   assignDriver(String routeId) async {
-    print('assigning driver');
-    print(id);
-    print(routeId);
     await FirebaseFirestore.instance
         .collection('bus_routes')
         .doc(routeId)
@@ -29,7 +26,6 @@ class DriverData extends ChangeNotifier {
         .collection("bus_routes")
         .doc(routeId)
         .get();
-    print(routeData.data());
 
     await FirebaseFirestore.instance
         .collection('users')
@@ -59,12 +55,6 @@ class DriverData extends ChangeNotifier {
                   time: doc.get("time"),
                   numberOfSeats: doc.get("number_of_seats"),
                   seats: []));
-              print(doc.id);
-              print(doc.get("source"));
-              print(doc.get("destination"));
-              print(doc.get("price"));
-              print(doc.get("bus_number"));
-              print(doc.get("time"));
             }));
     notifyListeners();
   }
@@ -88,12 +78,6 @@ class DriverData extends ChangeNotifier {
                   time: doc.get("time"),
                   numberOfSeats: doc.get("number_of_seats"),
                   seats: []));
-              print(doc.id);
-              print(doc.get("source"));
-              print(doc.get("destination"));
-              print(doc.get("price"));
-              print(doc.get("bus_number"));
-              print(doc.get("time"));
             }));
     notifyListeners();
   }
