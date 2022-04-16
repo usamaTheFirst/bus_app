@@ -53,7 +53,7 @@ class _SeatScreenState extends State<SeatScreen> {
                                   crossAxisSpacing: 10,
                                   mainAxisSpacing: 10),
                           itemBuilder: (ctx, ind) =>
-                              SeatWidget(seat: seats[ind], index: index),
+                              SeatWidget(seat: seats[ind], index: ind),
                         ),
                       )
                     ],
