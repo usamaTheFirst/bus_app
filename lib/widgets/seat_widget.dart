@@ -33,6 +33,8 @@ class _SeatWidgetState extends State<SeatWidget> {
       onTap: widget.seat.confirm
           ? null
           : () {
+              print(widget.seat.confirm);
+              print(widget.index);
               widget.seat.changeStatus();
               setState(() {
                 if (widget.seat.isBooked) {
