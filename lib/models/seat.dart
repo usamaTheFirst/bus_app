@@ -24,7 +24,9 @@ class Seat extends ChangeNotifier {
       confirm = !confirm;
       status = !status;
     }
-    await FirebaseFirestore.instance
+    print('Starting booking');
+    print(confirm);
+    final response = await FirebaseFirestore.instance
         .collection('bus_routes')
         .doc(parentId)
         .collection('seats')
@@ -32,7 +34,9 @@ class Seat extends ChangeNotifier {
         .update({
       'confirm': confirm,
     });
+
     await assignSeatToUser();
+    print('Booking completed');
   }
 
   factory Seat.fromJson(Map<String, dynamic> json) => Seat(
