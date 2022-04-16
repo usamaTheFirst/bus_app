@@ -63,8 +63,7 @@ class _SeatScreenState extends State<SeatScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SeatInformationWidget(
-                        title: "Not Available", color: Colors.grey),
+                    SeatInformationWidget(title: "Booked", color: Colors.grey),
                     const SizedBox(
                       height: 10,
                     ),
@@ -225,11 +224,11 @@ class SeatInformationWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          width: 2,
+          width: 5,
         ),
         Text(
           title,
-          style: const TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 14),
         )
       ],
     );
