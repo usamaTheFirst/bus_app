@@ -7,11 +7,14 @@ class UserData extends ChangeNotifier {
   String? name;
   late String email;
   late String id;
+  late String role;
   List<TripHistory> history = [];
+  List<TripHistory> schedule = [];
 
-  setUserData(String? name, String? email, String id) {
+  setUserData(String? name, String? email, String id, String role) {
     if (name != null) this.name = name;
     if (email != null) this.email = email;
+    if (role != null) this.role = role;
     this.id = id;
 
     notifyListeners();
@@ -48,6 +51,26 @@ class UserData extends ChangeNotifier {
         .doc(id)
         .collection('bookings')
         .where('date', isLessThan: DateTime.now())
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        print(element.data());
+
+        history.add(TripHistory.fromJSON(element.data()));
+      });
+    });
+    notifyListeners();
+  }
+
+  getBooking() async {
+    print("getBookings");
+
+    schedule = [];
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(id)
+        .collection('bookings')
+        .where('date', isGreaterThan: DateTime.now())
         .get()
         .then((value) {
       value.docs.forEach((element) {

@@ -2,6 +2,8 @@ import 'package:bus_ticket_app/models/driver_list.dart';
 import 'package:bus_ticket_app/screens/admin/assign_driver_screen.dart';
 import 'package:bus_ticket_app/screens/available_tickets.dart';
 import 'package:bus_ticket_app/screens/loader_screen.dart';
+import 'package:bus_ticket_app/screens/booking_screen.dart';
+import 'package:bus_ticket_app/screens/setting_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -54,7 +56,6 @@ class MyApp extends StatelessWidget {
         ConfirmDetails.routeName: (context) => const ConfirmDetails(),
         PaymentScreen.routeName: (context) => const PaymentScreen(),
         ViewHistory.routeName: (context) => const ViewHistory(),
-        MyBooking.routeName: (context) => const MyBooking(),
         MainDriverScreen.routeName: (context) => const MainDriverScreen(),
         DriverRoutes.routeName: (context) => const DriverRoutes(),
         DriverPastRoutes.routeName: (context) => const DriverPastRoutes(),
@@ -66,6 +67,8 @@ class MyApp extends StatelessWidget {
         AvailableTicketsScreen.routeName: (context) =>
             const AvailableTicketsScreen(),
         EditRoute.routeName: (context) => EditRoute(),
+        SettingScreen.routeName: (context) => const SettingScreen(),
+        ViewBooking.routeName: (context) => ViewBooking(),
         AssignDriverScreen.routeName: (context) => const AssignDriverScreen(),
       },
       title: 'Flutter Demo',
@@ -106,7 +109,7 @@ class _ChangerState extends State<Changer> {
         firstTime = false;
       });
       await Provider.of<UserData>(context, listen: false)
-          .setUserData(_user?.displayName, _user?.email, _user!.uid);
+          .setUserData(_user?.displayName, _user?.email, _user!.uid, role);
     }
   }
 

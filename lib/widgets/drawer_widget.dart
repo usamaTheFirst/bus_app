@@ -1,5 +1,7 @@
 import 'package:bus_ticket_app/constants/constants.dart';
+import 'package:bus_ticket_app/exports.dart';
 import 'package:bus_ticket_app/models/user.dart';
+import 'package:bus_ticket_app/screens/setting_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -28,16 +30,33 @@ class DrawerWidget extends StatelessWidget {
                 backgroundColor: kBackgroundColor,
               ),
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(FontAwesomeIcons.home),
               title: Text("Home"),
+              onTap: () {
+                Navigator.of(context).pop();
+
+                String role = data.role;
+
+                if (role == "admin") {
+                  Navigator.of(context).pushNamed(AdminHomeScreen.routeName);
+                } else if (role == "user") {
+                  Navigator.of(context).pushNamed(MainUserScreen.routeName);
+                } else if (role == "driver") {
+                  Navigator.of(context).pushNamed(MainDriverScreen.routeName);
+                }
+              },
             ),
             const Divider(
               thickness: 1,
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.settings),
               title: Text("Settings"),
+              onTap: () {
+                Navigator.pushReplacementNamed(
+                    context, SettingScreen.routeName);
+              },
             ),
             const Divider(
               thickness: 1,

@@ -186,8 +186,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           await _user.reload();
                           _user = _auth.currentUser;
                           Provider.of<UserData>(context, listen: false)
-                              .setUserData(
-                                  _user?.displayName, _user?.email, _user!.uid);
+                              .setUserData(_user?.displayName, _user?.email,
+                                  _user!.uid, 'customer');
                           await FirebaseFirestore.instance
                               .collection('users')
                               .doc(id)
@@ -251,7 +251,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             _user = _auth.currentUser;
                             Provider.of<UserData>(context, listen: false)
                                 .setUserData(_user?.displayName, _user?.email,
-                                    _user!.uid);
+                                    _user!.uid, 'driver');
                             await FirebaseFirestore.instance
                                 .collection('users')
                                 .doc(id)

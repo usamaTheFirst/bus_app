@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                             Provider.of<UserData>(context, listen: false)
                                 .setUserData(_user?.displayName, _user?.email,
-                                    _user!.uid);
+                                    _user!.uid, role);
 
                             if (role == "customer") {
                               Navigator.pushReplacementNamed(

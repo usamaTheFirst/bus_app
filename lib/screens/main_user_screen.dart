@@ -1,5 +1,6 @@
 import 'package:bus_ticket_app/models/user.dart';
 import 'package:bus_ticket_app/screens/available_tickets.dart';
+import 'package:bus_ticket_app/screens/booking_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -60,12 +61,11 @@ class MainUserScreen extends StatelessWidget {
                 iconSource: FontAwesomeIcons.history),
             MenuTile(
                 title: 'My Booking',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushReplacementNamed(
+                      context, ViewBooking.routeName);
+                },
                 iconSource: FontAwesomeIcons.bus),
-            MenuTile(
-                title: 'View Schedule',
-                onTap: () {},
-                iconSource: FontAwesomeIcons.calendarDay),
           ],
         ),
       ),

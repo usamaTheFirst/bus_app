@@ -5,10 +5,10 @@ import 'package:provider/provider.dart';
 
 import '../exports.dart';
 
-class ViewHistory extends StatelessWidget {
-  const ViewHistory({Key? key}) : super(key: key);
+class ViewBooking extends StatelessWidget {
+  const ViewBooking({Key? key}) : super(key: key);
 
-  static const routeName = "/view-history";
+  static const routeName = "/view-schedule";
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +16,13 @@ class ViewHistory extends StatelessWidget {
         drawer: const DrawerWidget(),
         appBar: AppBar(
           title: const Text(
-            'Travel History',
+            'Travel Schedule',
           ),
           backgroundColor: kPrimaryColor,
           centerTitle: true,
         ),
         body: FutureBuilder(
-          future: Provider.of<UserData>(context, listen: false).getHistory(),
+          future: Provider.of<UserData>(context, listen: false).getBooking(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
