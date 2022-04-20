@@ -2,6 +2,8 @@ import 'package:bus_ticket_app/models/driver_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../exports.dart';
+
 class AssignDriverScreen extends StatelessWidget {
   const AssignDriverScreen({Key? key}) : super(key: key);
 
@@ -10,6 +12,11 @@ class AssignDriverScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final id = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Select A Driver'),
+        backgroundColor: kPrimaryColor,
+        centerTitle: true,
+      ),
       body: FutureBuilder(
           future:
               Provider.of<DriverList>(context, listen: false).fetchDrivers(),
@@ -29,9 +36,7 @@ class AssignDriverScreen extends StatelessWidget {
                     itemCount: ddata.drivers.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        tileColor: Colors.red,
                         title: Text(ddata.drivers[index].name.toString()),
-                        trailing: const Icon(Icons.check),
                         onTap: () async {
                           await ddata.assignDriver(index, id);
                           Navigator.of(context).pop();

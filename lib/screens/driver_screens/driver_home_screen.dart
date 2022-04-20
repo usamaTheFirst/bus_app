@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import '../../models/user.dart';
 import '/exports.dart';
 
 class MainDriverScreen extends StatelessWidget {
@@ -9,6 +11,7 @@ class MainDriverScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? name = Provider.of<UserData>(context).getName();
     return Scaffold(
       drawer: const DrawerWidget(),
       appBar: AppBar(
@@ -21,9 +24,9 @@ class MainDriverScreen extends StatelessWidget {
         bottom: PreferredSize(
           child: Container(
             padding: const EdgeInsets.only(bottom: 10),
-            child: const Text(
-              "Driver Name",
-              style: TextStyle(
+            child: Text(
+              name!,
+              style: const TextStyle(
                 fontSize: 20,
                 color: kBackgroundColor,
               ),

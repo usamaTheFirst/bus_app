@@ -1,5 +1,4 @@
 import 'package:bus_ticket_app/models/bus_route_bag.dart';
-import 'package:bus_ticket_app/screens/admin/assign_driver_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -140,7 +139,7 @@ class BookingTileAdmin extends StatelessWidget {
                   TextButton(
                       child: const Text('Delete',
                           style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.normal,
                               color: kPrimaryColor)),
                       onPressed: () {
@@ -157,7 +156,7 @@ class BookingTileAdmin extends StatelessWidget {
                       ),
                       child: const Text('Edit',
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.normal)),
+                              fontSize: 16, fontWeight: FontWeight.normal)),
                       onPressed: () {
                         showModalBottomSheet(
                           isScrollControlled: true,
@@ -181,22 +180,27 @@ class BookingTileAdmin extends StatelessWidget {
                           ),
                         );
                       }),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: kTextColor,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 8,
-                          horizontal: 34,
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: kTextColor,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            //horizontal: 34,
+                          ),
                         ),
-                      ),
-                      child: const Text('Assign Driver',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.normal)),
-                      onPressed: () {
-                        Navigator.pushNamed(
-                            context, AssignDriverScreen.routeName,
-                            arguments: id);
-                      }),
+                        child: const Text('Assign Driver',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.normal)),
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, AssignDriverScreen.routeName,
+                              arguments: id);
+                        }),
+                  ),
                 ],
               ),
             ],
