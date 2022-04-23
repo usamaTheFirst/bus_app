@@ -5,11 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
-
 import 'exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'models/bus_route_bag.dart';
 import 'models/currently_booked_seats.dart';
 import 'models/user.dart';
@@ -63,12 +61,13 @@ class MyApp extends StatelessWidget {
         ViewBooking.routeName: (context) => const ViewBooking(),
         AssignDriverScreen.routeName: (context) => const AssignDriverScreen(),
       },
-      title: 'Flutter Demo',
+      title: 'Bus Ticket App',
       theme: ThemeData(
         scaffoldBackgroundColor: kBackgroundColor,
-        primarySwatch: Colors.blue,
+        primarySwatch: colorCustom,
       ),
       home: const Changer(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
