@@ -166,7 +166,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             valueColor:
                                 AlwaysStoppedAnimation<Color>(Colors.white),
                           ),
-                    color: kPrimaryColor,
+                    color: kTextColor,
                     function: () async {
                       bool val = _formKey.currentState!.validate();
                       if (val) {

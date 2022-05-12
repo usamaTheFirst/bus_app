@@ -23,12 +23,15 @@ class HomePage extends StatelessWidget {
             ),
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 20),
-              child: Text(
-                'Welcome to Bus Ticket App',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: kTextColor,
-                  fontWeight: FontWeight.bold,
+              child: Center(
+                child: Text(
+                  'Welcome to Bus Ticket App',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: kTextColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -45,7 +48,7 @@ class HomePage extends StatelessWidget {
                           Navigator.pushNamed(context, LoginScreen.routeName);
                         }),
                     RoundedButton(
-                        color: kPrimaryColor,
+                        color: kTextColor,
                         title: "Register",
                         function: () {
                           Navigator.pushNamed(context, SignupScreen.routeName);
