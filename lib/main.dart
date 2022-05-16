@@ -1,5 +1,6 @@
 import 'package:bus_ticket_app/models/driver_list.dart';
 import 'package:bus_ticket_app/screens/booking_screen.dart';
+import 'package:bus_ticket_app/screens/contact_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
             const AvailableTicketsScreen(),
         EditRoute.routeName: (context) => EditRoute(),
         SettingScreen.routeName: (context) => const SettingScreen(),
+        ContactScreen.routeName: (context) => const ContactScreen(),
         ViewBooking.routeName: (context) => const ViewBooking(),
         AssignDriverScreen.routeName: (context) => const AssignDriverScreen(),
       },

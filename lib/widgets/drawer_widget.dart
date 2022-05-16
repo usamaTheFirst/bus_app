@@ -1,5 +1,6 @@
 import 'package:bus_ticket_app/exports.dart';
 import 'package:bus_ticket_app/models/user.dart';
+import 'package:bus_ticket_app/screens/contact_screen.dart';
 import 'package:bus_ticket_app/screens/setting_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,7 @@ class DrawerWidget extends StatelessWidget {
             ListTile(
               leading: const Icon(FontAwesomeIcons.mailBulk),
               onTap: () async {
-                await launch("mailto:usamafiaz@1453@gmail.com");
+                Navigator.pushNamed(context, ContactScreen.routeName);
               },
               title: const Text("Contact us"),
             ),
