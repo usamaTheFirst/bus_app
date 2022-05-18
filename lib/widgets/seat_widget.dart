@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SeatWidget extends StatefulWidget {
-  const SeatWidget({Key? key, required this.seat, required this.index})
+  const SeatWidget({Key? key, required this.seat, required this.seatNumber})
       : super(key: key);
   final Seat seat;
-  final int index;
+  final int seatNumber;
 
   @override
   State<SeatWidget> createState() => _SeatWidgetState();
@@ -34,18 +34,18 @@ class _SeatWidgetState extends State<SeatWidget> {
           ? null
           : () {
               print(widget.seat.confirm);
-              print(widget.index);
+              print(widget.seatNumber);
               widget.seat.changeStatus();
               setState(() {
                 if (widget.seat.isBooked) {
                   color = Colors.green;
                   Provider.of<BookedSeats>(context, listen: false)
-                      .addBookedSeat(widget.index);
+                      .addBookedSeat(widget.seatNumber);
                 } else {
                   color = kPrimaryColor;
                   Provider.of<BookedSeats>(context, listen: false)
                       .removeBookedSeat(
-                    widget.index,
+                    widget.seatNumber,
                   );
                 }
               });

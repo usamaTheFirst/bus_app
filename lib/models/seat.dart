@@ -8,14 +8,14 @@ class Seat extends ChangeNotifier {
   bool status = false;
   bool confirm;
   String? parentId;
-  int? index;
+  int? seatNumber;
 
   Seat(
       {this.id,
       this.parentId,
       required this.price,
       required this.confirm,
-      this.index});
+      this.seatNumber});
 
   bool get isBooked => status;
 
@@ -61,13 +61,13 @@ class Seat extends ChangeNotifier {
         confirm: json["confirm"],
         id: json["id"],
         parentId: json["parentId"],
-        index: json["index"],
+        seatNumber: json["index"],
       );
 
   toJson() => {
         "price": price,
         "confirm": confirm,
-        "index": index,
+        "seat number": seatNumber,
       };
 
   assignSeatToUser() {

@@ -28,7 +28,7 @@ class BusRouteBag extends ChangeNotifier {
 
     final List<Seat> seats = [];
     for (int i = 0; i < numberOfSeats; i++) {
-      final tempSeat = Seat(confirm: false, price: price, index: i + 1);
+      final tempSeat = Seat(confirm: false, price: price, seatNumber: i + 1);
       final seatId = await FirebaseFirestore.instance
           .collection('bus_routes')
           .doc(routeId.id)

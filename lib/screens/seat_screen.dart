@@ -21,7 +21,7 @@ class _SeatScreenState extends State<SeatScreen> {
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
-    final index = args['index'];
+    final seatNumber = args['seatNumber'];
     final id = args['id'];
     final seats = Provider.of<BusRouteBag>(context)
         .busRoutes
@@ -58,7 +58,7 @@ class _SeatScreenState extends State<SeatScreen> {
                                   crossAxisSpacing: 10,
                                   mainAxisSpacing: 10),
                           itemBuilder: (ctx, ind) =>
-                              SeatWidget(seat: seats[ind], index: ind),
+                              SeatWidget(seat: seats[ind], seatNumber: ind),
                         ),
                       )
                     ],
