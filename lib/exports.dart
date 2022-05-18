@@ -3,6 +3,7 @@ export 'screens/login_screen.dart';
 export 'screens/signup_screen.dart';
 export 'screens/main_user_screen.dart';
 export 'screens/view_history_screen.dart';
+export 'screens/select_cities.dart';
 export 'screens/available_tickets.dart';
 export 'screens/payment_screen.dart';
 export 'screens/loader_screen.dart';

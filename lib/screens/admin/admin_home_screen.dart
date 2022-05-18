@@ -35,21 +35,41 @@ class AdminHomeScreen extends StatelessWidget {
         ),
       ),
       body: Container(
-        margin: const EdgeInsets.all(20),
-        child: GridView.count(
-          crossAxisCount: 2,
-          crossAxisSpacing: 40,
-          mainAxisSpacing: 40,
-          children: [
-            MenuTile(
-                title: 'Manage Routes',
-                onTap: () {
-                  Navigator.pushNamed(context, ManageRoutes.routeName);
-                },
-                iconSource: FontAwesomeIcons.edit),
-          ],
-        ),
-      ),
+          margin: const EdgeInsets.all(20),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, ManageRoutes.routeName);
+            },
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: 140,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                color: kBackgroundColor,
+                elevation: 8,
+                borderOnForeground: false,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    FaIcon(FontAwesomeIcons.edit, size: 60, color: kTextColor),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'Manage Routes',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: kTextColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )),
     );
   }
 }

@@ -22,7 +22,12 @@ class _SeatScreenState extends State<SeatScreen> {
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
     final index = args['index'];
-    final seats = Provider.of<BusRouteBag>(context).busRoutes[index].seats;
+    final id = args['id'];
+    final seats = Provider.of<BusRouteBag>(context)
+        .busRoutes
+        .where((element) => element.routeId == id)
+        .toList()[0]
+        .seats;
     return Scaffold(
         drawer: const DrawerWidget(),
         backgroundColor: kBackgroundColor,
@@ -157,8 +162,16 @@ class _SeatScreenState extends State<SeatScreen> {
         print('payment intent' + paymentIntentData!['amount'].toString());
         print('payment intent' + paymentIntentData.toString());
         //orderPlaceApi(paymentIntentData!['id'].toString());
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("paid successfully")));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: const Duration(minutes: 5),
+          content: const Text("Seat Booked successfully"),
+          action: SnackBarAction(
+            label: 'Dismiss',
+            onPressed: () {
+              Scaffold.of(context).hideCurrentSnackBar();
+            },
+          ),
+        ));
         final args =
             ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
         final index = args['index'];

@@ -3,17 +3,15 @@ import 'package:bus_ticket_app/models/bus_route_bag.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AvailableTicketsScreen extends StatelessWidget {
-  const AvailableTicketsScreen({Key? key}) : super(key: key);
-  static const String routeName = '/available-tickets';
-
+class SelectCityScreen extends StatelessWidget {
+  const SelectCityScreen({Key? key}) : super(key: key);
+  static const String routeName = '/select-city';
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
-          title: const Text('Available Routes'),
+          title: const Text('Select Destination'),
         ),
         body: FutureBuilder(
           future:
@@ -30,18 +28,21 @@ class AvailableTicketsScreen extends StatelessWidget {
             } else {
               return Consumer<BusRouteBag>(
                 builder: (context, busRouteBag, child) {
-                  List temp = busRouteBag.busRoutes
-                      .where((element) => element.destination == args)
-                      .toList();
                   return ListView.builder(
-                    itemCount: temp.length,
+                    itemCount: busRouteBag.busRoutes.length,
                     itemBuilder: (context, index) {
-                      return BookingTileCustomer(
-                          source: temp[index].source,
-                          destination: temp[index].destination,
-                          time: temp[index].time,
-                          index: busRouteBag.busRoutes.indexOf(temp[index]),
-                          id: temp[index].routeId);
+                      return Card(
+                        child: ListTile(
+                          title: Text(busRouteBag.busRoutes[index].destination),
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              AvailableTicketsScreen.routeName,
+                              arguments:
+                                  busRouteBag.busRoutes[index].destination,
+                            );
+                          },
+                        ),
+                      );
                     },
                   );
                 },

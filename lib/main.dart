@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
         SeatScreen.routeName: (context) => const SeatScreen(),
         AvailableTicketsScreen.routeName: (context) =>
             const AvailableTicketsScreen(),
+        SelectCityScreen.routeName: (context) => const SelectCityScreen(),
         EditRoute.routeName: (context) => EditRoute(),
         SettingScreen.routeName: (context) => const SettingScreen(),
         ContactScreen.routeName: (context) => const ContactScreen(),

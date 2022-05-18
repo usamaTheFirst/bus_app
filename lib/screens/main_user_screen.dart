@@ -46,8 +46,7 @@ class MainUserScreen extends StatelessWidget {
             MenuTile(
                 title: 'Book Ticket',
                 onTap: () {
-                  Navigator.of(context)
-                      .pushNamed(AvailableTicketsScreen.routeName);
+                  Navigator.of(context).pushNamed(SelectCityScreen.routeName);
                 },
                 iconSource: FontAwesomeIcons.ticketAlt),
             MenuTile(

@@ -15,7 +15,7 @@ class ViewBooking extends StatelessWidget {
         drawer: const DrawerWidget(),
         appBar: AppBar(
           title: const Text(
-            'Travel Schedule',
+            'My Booking',
           ),
           backgroundColor: kPrimaryColor,
           centerTitle: true,
@@ -35,13 +35,13 @@ class ViewBooking extends StatelessWidget {
               return Consumer<UserData>(
                 builder: (context, udata, child) {
                   return ListView.builder(
-                    itemCount: udata.history.length,
+                    itemCount: udata.schedule.length,
                     itemBuilder: (context, index) {
                       return BookingTile(
-                        source: udata.history[index].source,
-                        destination: udata.history[index].destination,
-                        time: udata.history[index].date,
-                        price: int.parse(udata.history[index].price),
+                        source: udata.schedule[index].source,
+                        destination: udata.schedule[index].destination,
+                        time: udata.schedule[index].date,
+                        price: int.parse(udata.schedule[index].price),
                       );
                     },
                   );

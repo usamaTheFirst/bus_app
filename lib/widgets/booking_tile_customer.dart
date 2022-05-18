@@ -10,20 +10,22 @@ class BookingTileCustomer extends StatelessWidget {
       required this.source,
       required this.destination,
       required this.time,
-      required this.index})
+      required this.index,
+      required this.id})
       : super(key: key);
 
   final String source;
   final String destination;
   final Timestamp time;
   final int index;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, SeatScreen.routeName,
-            arguments: {'index': index});
+            arguments: {'index': index, 'id': id});
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),

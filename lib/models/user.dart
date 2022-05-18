@@ -69,7 +69,7 @@ class UserData extends ChangeNotifier {
       for (var element in value.docs) {
         print(element.data());
 
-        history.add(TripHistory.fromJSON(element.data()));
+        schedule.add(TripHistory.fromJSON(element.data()));
       }
     });
     notifyListeners();
