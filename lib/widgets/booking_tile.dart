@@ -22,7 +22,6 @@ class BookingTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(seatNumber.toString());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
       child: Card(
