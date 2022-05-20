@@ -36,7 +36,7 @@ class ContactScreen extends StatelessWidget {
                 padding: EdgeInsets.all(16),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: [
+                  children: const [
                     Text(
                       'Email',
                       style: TextStyle(fontSize: 20),

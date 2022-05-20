@@ -47,7 +47,7 @@ class BusRouteBag extends ChangeNotifier {
       time: time,
       seats: seats,
     );
-
+    busRoutes.add(busRoute);
     fetchBusRoutes();
     notifyListeners();
   }
@@ -57,7 +57,7 @@ class BusRouteBag extends ChangeNotifier {
     QuerySnapshot snapshot =
         await FirebaseFirestore.instance.collection('bus_routes').get();
     for (var doc in snapshot.docs) {
-      final List<Seat> seats = [];
+      List<Seat> seats = [];
       await FirebaseFirestore.instance
           .collection('bus_routes')
           .doc(doc.id)
@@ -69,9 +69,10 @@ class BusRouteBag extends ChangeNotifier {
                   'confirm': seat['confirm'],
                   'price': seat['price'],
                   'parentId': doc.id,
+                  'seatNumber': seat['seatNumber'],
                 }));
               }));
-
+      seats.sort((a, b) => a.seatNumber!.compareTo(b.seatNumber!));
       busRoutes.add(BusRoute(
         routeId: doc.id,
         price: doc['price'],

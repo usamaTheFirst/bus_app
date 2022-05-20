@@ -56,6 +56,9 @@ class _SeatWidgetState extends State<SeatWidget> {
         decoration: BoxDecoration(
             color: color,
             borderRadius: const BorderRadius.all(Radius.circular(10))),
+        child: Center(
+          child: Text(widget.seatNumber.toString()),
+        ),
       ),
     );
   }

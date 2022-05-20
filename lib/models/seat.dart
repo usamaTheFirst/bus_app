@@ -40,7 +40,7 @@ class Seat extends ChangeNotifier {
           .update({
         'confirm': confirm,
       });
-      await assignSeatToUser();
+      await assignSeatToUser(seatNumber as int);
       print('Booking completed');
     }
     final response = await FirebaseFirestore.instance
@@ -52,7 +52,7 @@ class Seat extends ChangeNotifier {
       'confirm': confirm,
     });
 
-    await assignSeatToUser();
+    await assignSeatToUser(seatNumber as int);
     print('Booking completed');
   }
 
@@ -61,38 +61,42 @@ class Seat extends ChangeNotifier {
         confirm: json["confirm"],
         id: json["id"],
         parentId: json["parentId"],
-        seatNumber: json["index"],
+        seatNumber: json["seatNumber"],
       );
 
   toJson() => {
         "price": price,
         "confirm": confirm,
-        "seat number": seatNumber,
+        "seatNumber": seatNumber,
       };
 
-  assignSeatToUser() {
+  assignSeatToUser(int seatNumber) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     final ffstore = FirebaseFirestore.instance;
-    ffstore.collection('bus_routes').get().then((value) {
-      for (var element in value.docs) {
-        final source = element.data()['source'];
-        final destination = element.data()['destination'];
-        final date = element.data()['time'];
+    ffstore.collection('bus_routes').doc(parentId).get().then((value) {
+      final source = value.data()!['source'];
+      final destination = value.data()!['destination'];
+      final date = value.data()!['time'];
 
-        ffstore
-            .collection('users')
-            .doc(userId)
-            .collection('bookings')
-            .doc(id)
-            .set({
-          'id': id,
-          'parentId': parentId,
-          'source': source,
-          'destination': destination,
-          'price': price,
-          'date': date,
-        });
-      }
+      print("Route info");
+      print(source);
+      print(destination);
+      print(date);
+
+      ffstore
+          .collection('users')
+          .doc(userId)
+          .collection('bookings')
+          .doc(id)
+          .set({
+        'id': id,
+        'parentId': parentId,
+        'source': source,
+        'destination': destination,
+        'price': price,
+        'date': date,
+        'seatNumber': seatNumber,
+      });
     });
   }
 }
