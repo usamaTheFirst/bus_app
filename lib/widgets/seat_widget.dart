@@ -57,7 +57,7 @@ class _SeatWidgetState extends State<SeatWidget> {
             color: color,
             borderRadius: const BorderRadius.all(Radius.circular(10))),
         child: Center(
-          child: Text(widget.seatNumber.toString()),
+          child: Text((widget.seatNumber + 1).toString()),
         ),
       ),
     );

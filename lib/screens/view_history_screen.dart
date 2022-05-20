@@ -42,6 +42,7 @@ class ViewHistory extends StatelessWidget {
                         destination: udata.history[index].destination,
                         time: udata.history[index].date,
                         price: int.parse(udata.history[index].price),
+                        seatNumber: udata.history[index].seatNumber,
                       );
                     },
                   );

@@ -42,6 +42,7 @@ class ViewBooking extends StatelessWidget {
                         destination: udata.schedule[index].destination,
                         time: udata.schedule[index].date,
                         price: int.parse(udata.schedule[index].price),
+                        seatNumber: udata.schedule[index].seatNumber,
                       );
                     },
                   );

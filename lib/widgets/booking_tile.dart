@@ -11,15 +11,18 @@ class BookingTile extends StatelessWidget {
     required this.destination,
     required this.time,
     required this.price,
+    this.seatNumber,
   }) : super(key: key);
 
   final String source;
   final String destination;
   final Timestamp time;
   final int price;
+  final String? seatNumber;
 
   @override
   Widget build(BuildContext context) {
+    print(seatNumber.toString());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
       child: Card(
@@ -69,6 +72,15 @@ class BookingTile extends StatelessWidget {
                   ),
                   TextSpan(
                     text: ' Rs. $price\n',
+                  ),
+                  const TextSpan(
+                    text: 'Seat Number: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: seatNumber,
                   ),
                   WidgetSpan(
                     child: Container(

@@ -1,22 +1,20 @@
 import 'package:flutter/foundation.dart';
 
 class BookedSeats extends ChangeNotifier {
-  final List<int> _bookedSeats = [];
-
-  List<int> get bookedSeats => _bookedSeats;
+  List<int> bookedSeats = [];
 
   void addBookedSeat(int index) {
-    _bookedSeats.add(index);
+    bookedSeats.add(index);
     notifyListeners();
   }
 
   void removeBookedSeat(int index) {
-    _bookedSeats.remove(index);
+    bookedSeats.remove(index);
     notifyListeners();
   }
 
   clearBookedSeats() {
-    _bookedSeats.clear();
+    bookedSeats = [];
     notifyListeners();
   }
 }
